@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 /**
  * Base Activity class with implementing
  * common methods to most activities.
- * Created by kamilabrito on 7/26/17.
+ * Created by kamilabrito on 7/25/17.
  */
 
 public abstract class BaseActivity extends AppCompatActivity {

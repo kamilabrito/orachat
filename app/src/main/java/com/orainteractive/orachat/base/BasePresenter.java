@@ -27,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Base Presenter class with implementing
  * common methods to most presenters.
- * Created by kamilabrito on 7/26/17.
+ * Created by kamilabrito on 7/25/17.
  */
 
 public abstract class BasePresenter <V extends BaseView> {

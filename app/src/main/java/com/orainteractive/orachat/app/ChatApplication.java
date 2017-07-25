@@ -26,7 +26,7 @@ import com.orainteractive.orachat.dagger.module.ApplicationModule;
  * Custom base Application class with dagger
  * injection tor maintain the global state
  * of the application
- * Created by kamilabrito on 7/26/17.
+ * Created by kamilabrito on 7/25/17.
  */
 
 public class ChatApplication extends Application {

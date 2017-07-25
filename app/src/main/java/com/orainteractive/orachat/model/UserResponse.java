@@ -14,11 +14,47 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.base;
+package com.orainteractive.orachat.model;
 
 /**
+ * User response object model
  * Created by kamilabrito on 7/25/17.
  */
 
-public interface BaseView {
+public class UserResponse {
+
+    private User data;
+    private Pagination meta;
+
+    /**
+     * Get response data
+     * @return
+     */
+    public User getData() {
+        return data;
+    }
+
+    /**
+     * Set response data
+     * @param data
+     */
+    public void setData(User data) {
+        this.data = data;
+    }
+
+    /**
+     * Set response meta
+     * @return
+     */
+    public Pagination getMeta() {
+        return meta;
+    }
+
+    /**
+     * Get response meta
+     * @param meta
+     */
+    public void setMeta(Pagination meta) {
+        this.meta = meta;
+    }
 }

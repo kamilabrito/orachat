@@ -25,7 +25,7 @@ import dagger.Component;
 import retrofit2.Retrofit;
 
 /**
- * Created by kamilabrito on 7/26/17.
+ * Created by kamilabrito on 7/25/17.
  */
 
 @Singleton
