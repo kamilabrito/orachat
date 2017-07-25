@@ -22,6 +22,9 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.orainteractive.orachat.app.ChatApplication;
+import com.orainteractive.orachat.dagger.components.ApplicationComponent;
+
 import butterknife.ButterKnife;
 
 /**
@@ -44,6 +47,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @CallSuper
     protected void onViewReady(Bundle savedInstanceState, Intent intent) {
         resolveDaggerDependency();
+    }
+
+    protected ApplicationComponent getApplicationComponent() {
+        return ((ChatApplication) getApplication()).getApplicationComponent();
     }
 
     @Override

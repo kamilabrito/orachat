@@ -19,6 +19,7 @@ package com.orainteractive.orachat.app;
 import android.app.Application;
 
 import com.orainteractive.orachat.dagger.components.ApplicationComponent;
+import com.orainteractive.orachat.dagger.components.DaggerApplicationComponent;
 import com.orainteractive.orachat.dagger.module.ApplicationModule;
 
 

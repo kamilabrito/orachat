@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.dagger.components;
+package com.orainteractive.orachat.view.splash;
 
-import com.orainteractive.orachat.dagger.module.ChatModule;
-import com.orainteractive.orachat.dagger.scope.PerActivity;
-import com.orainteractive.orachat.view.splash.SplashActivity;
 
-import dagger.Component;
+import com.orainteractive.orachat.base.BaseView;
 
 /**
- * Created by kamilabrito on 7/25/17.
+ * Created by kamilabrito on 7/26/17.
  */
-@PerActivity
-@Component(modules = ChatModule.class, dependencies = ApplicationComponent.class)
-public interface ChatComponent {
 
-    void inject(SplashActivity activity);
+public interface SplashView extends BaseView {
 
+    void startMainActivity();
+
+    void starLoginActivity();
 }

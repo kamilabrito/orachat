@@ -17,6 +17,8 @@
 package com.orainteractive.orachat.dagger.components;
 
 
+import android.content.Context;
+
 import com.orainteractive.orachat.dagger.module.ApplicationModule;
 
 import javax.inject.Singleton;
@@ -33,4 +35,6 @@ import retrofit2.Retrofit;
 public interface ApplicationComponent {
 
     Retrofit exposeRetrofit();
+    Context exposeContext();
+
 }
