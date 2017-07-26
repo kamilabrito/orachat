@@ -71,7 +71,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         if (login.getEmail().isEmpty() || login.getPassword().isEmpty()) {
             getView().showEmptyFieldError();
         } else {
-          Call<UserResponse> responseCall = mRetrofit.loginWithser(login);
+          Call<UserResponse> responseCall = mRetrofit.loginWithUser(login);
 
             responseCall.enqueue(new Callback<UserResponse>() {
                 @Override
@@ -94,7 +94,36 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     }
 
-    public void registerNewUser() {
+    public void registerNewUser(String name, String email, String password, String passwordConfimation) {
+        User newUser = new User();
+        newUser.setName(name);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        newUser.setPasswordConfirmation(passwordConfimation);
+
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfimation.isEmpty()) {
+            getView().showEmptyFieldError();
+        } else {
+
+            Call<UserResponse> newUserCall = mRetrofit.createNewUser(newUser);
+            newUserCall.enqueue(new Callback<UserResponse>() {
+                @Override
+                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                    Headers headers = response.headers();
+                    headers.get(context.getString(R.string.authorization)).toString();
+
+                    User user = mUserMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString());
+                    getView().openHomeScreen(user);
+                    mPreferences.saveUserOnStorage((Activity)getView(), user);
+                }
+
+                @Override
+                public void onFailure(Call<UserResponse> call, Throwable t) {
+
+                }
+            });
+        }
+
     }
 
     @Override

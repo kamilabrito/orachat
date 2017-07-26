@@ -17,6 +17,7 @@
 package com.orainteractive.orachat.services;
 
 import com.orainteractive.orachat.model.Login;
+import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
 
 import io.reactivex.Observable;
@@ -34,6 +35,9 @@ public interface RetrofitService {
     Observable<UserResponse> loginWithExistingUser(@Body Login login);
 
     @POST("/auth/login")
-    Call<UserResponse> loginWithser(@Body Login login);
+    Call<UserResponse> loginWithUser(@Body Login login);
+
+    @POST("/users")
+    Call<UserResponse> createNewUser(@Body User newUser);
 
 }

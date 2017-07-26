@@ -106,7 +106,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                         editTextLoginPassword.getText().toString());
                 break;
             case R.id.btn_register_register:
-                mPresenter.registerNewUser();
+                mPresenter.registerNewUser(editTextRegisterName.getText().toString(),
+                        editTextRegisterEmail.getText().toString(),
+                        editTextRegisterPassword.getText().toString(),
+                        editTextRegisterConfirmPassword.getText().toString());
                 break;
         }
     }
