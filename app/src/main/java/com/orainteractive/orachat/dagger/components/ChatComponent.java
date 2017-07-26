@@ -18,6 +18,7 @@ package com.orainteractive.orachat.dagger.components;
 
 import com.orainteractive.orachat.dagger.module.ChatModule;
 import com.orainteractive.orachat.dagger.scope.PerActivity;
+import com.orainteractive.orachat.view.login.LoginActivity;
 import com.orainteractive.orachat.view.splash.SplashActivity;
 
 import dagger.Component;
@@ -30,5 +31,6 @@ import dagger.Component;
 public interface ChatComponent {
 
     void inject(SplashActivity activity);
+    void inject(LoginActivity activity);
 
 }

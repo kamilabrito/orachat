@@ -24,10 +24,13 @@ import com.orainteractive.orachat.base.BaseActivity;
 import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
 import com.orainteractive.orachat.dagger.module.ChatModule;
 import com.orainteractive.orachat.presenter.SplashPresenter;
+import com.orainteractive.orachat.view.login.LoginActivity;
 
 import javax.inject.Inject;
 
 /**
+ * Splash screen activity
+ *
  * Created by kamilabrito on 7/25/17.
  */
 
@@ -55,6 +58,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
 
     @Override
     public void starLoginActivity() {
+        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
     }
 
     @Override

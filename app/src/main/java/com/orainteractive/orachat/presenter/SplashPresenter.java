@@ -27,6 +27,7 @@ import io.reactivex.Observable;
 
 
 /**
+ *Splash screen presenter
  * Created by kamilabrito on 7/25/17.
  */
 

@@ -20,6 +20,7 @@ import android.app.Activity;
 
 import com.orainteractive.orachat.dagger.scope.PerActivity;
 import com.orainteractive.orachat.services.RetrofitService;
+import com.orainteractive.orachat.view.login.LoginView;
 import com.orainteractive.orachat.view.splash.SplashView;
 
 import dagger.Module;
@@ -48,6 +49,12 @@ public class ChatModule {
     @Provides
     SplashView provideSplashView() {
         return (SplashView) mView;
+    }
+
+    @PerActivity
+    @Provides
+    LoginView provideLoginView() {
+        return (LoginView) mView;
     }
 
 }
