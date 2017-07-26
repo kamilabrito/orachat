@@ -128,8 +128,9 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     }
 
     @Override
-    public void openMainScreen(User user) {
+    public void openHomeScreen(User user) {
         Log.e("login","openMainScreen: " + user.getEmail());
+
     }
 
 }

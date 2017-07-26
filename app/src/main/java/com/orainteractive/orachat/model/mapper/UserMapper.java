@@ -16,12 +16,16 @@
 
 package com.orainteractive.orachat.model.mapper;
 
+import android.util.Log;
+
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
 
 import javax.inject.Inject;
 
 /**
+ * Parser user information from the server response to
+ * create an user object
  * Created by kamilabrito on 7/26/17.
  */
 
@@ -31,7 +35,7 @@ public class UserMapper {
     public UserMapper() {
     }
 
-    public User mapUser(UserResponse response) {
+    public User mapUser(UserResponse response, String authorization) {
         UserResponse userResponse = new UserResponse();
         User myUser = new User();
 
@@ -42,6 +46,7 @@ public class UserMapper {
             myUser.setId(userResponse.getData().getId());
             myUser.setName(userResponse.getData().getName());
             myUser.setEmail(userResponse.getData().getEmail());
+            myUser.setAuthorization(authorization);
         }
 
         return myUser;

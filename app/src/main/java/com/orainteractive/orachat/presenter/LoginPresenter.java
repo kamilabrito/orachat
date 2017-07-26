@@ -16,10 +16,14 @@
 
 package com.orainteractive.orachat.presenter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
+import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BasePresenter;
 import com.orainteractive.orachat.model.Login;
+import com.orainteractive.orachat.model.SharedPrefences;
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
 import com.orainteractive.orachat.model.mapper.UserMapper;
@@ -29,20 +33,25 @@ import com.orainteractive.orachat.view.login.LoginView;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
+import okhttp3.Headers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by kamilabrito on 7/25/17.
  */
 
-public class LoginPresenter extends BasePresenter<LoginView> implements Observer<UserResponse> {
+public class LoginPresenter extends BasePresenter<LoginView> {
 
     @Inject
     RetrofitService mRetrofit;
     @Inject
     UserMapper mUserMapper;
+    @Inject
+    SharedPrefences mPreferences;
+    @Inject
+    Context context;
 
     @Inject
     public LoginPresenter(){
@@ -61,11 +70,26 @@ public class LoginPresenter extends BasePresenter<LoginView> implements Observer
 
         if (login.getEmail().isEmpty() || login.getPassword().isEmpty()) {
             getView().showEmptyFieldError();
-            Log.e("login","email.isEmpty() || password.isEmpty()");
         } else {
-            Log.e("login","not empty");
-            Observable<UserResponse> userResponseObservable = mRetrofit.loginWithExistingUser(login);
-            subscribe(userResponseObservable, this);
+          Call<UserResponse> responseCall = mRetrofit.loginWithser(login);
+
+            responseCall.enqueue(new Callback<UserResponse>() {
+                @Override
+                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+
+                    Headers headers = response.headers();
+                    headers.get(context.getString(R.string.authorization)).toString();
+
+                    User user = mUserMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString());
+                    getView().openHomeScreen(user);
+                    mPreferences.saveUserOnStorage((Activity)getView(), user);
+                }
+
+                @Override
+                public void onFailure(Call<UserResponse> call, Throwable t) {
+
+                }
+            });
         }
 
     }
@@ -75,29 +99,6 @@ public class LoginPresenter extends BasePresenter<LoginView> implements Observer
 
     @Override
     public void update(Observable observable, Object o) {
-
-    }
-
-    @Override
-    public void onSubscribe(@NonNull Disposable d) {
-
-    }
-
-    @Override
-    public void onNext(@NonNull UserResponse userResponse) {
-        User user = mUserMapper.mapUser(userResponse);
-        getView().openMainScreen(user);
-
-    }
-
-    @Override
-    public void onError(@NonNull Throwable e) {
-        Log.e("login", e.getLocalizedMessage());
-
-    }
-
-    @Override
-    public void onComplete() {
 
     }
 }

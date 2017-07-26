@@ -20,6 +20,7 @@ import com.orainteractive.orachat.model.Login;
 import com.orainteractive.orachat.model.UserResponse;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -31,5 +32,8 @@ public interface RetrofitService {
 
     @POST("/auth/login")
     Observable<UserResponse> loginWithExistingUser(@Body Login login);
+
+    @POST("/auth/login")
+    Call<UserResponse> loginWithser(@Body Login login);
 
 }

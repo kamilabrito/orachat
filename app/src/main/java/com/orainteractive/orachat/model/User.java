@@ -28,6 +28,24 @@ public class User {
     private String email;
     private String password;
     private String password_confirmation;
+    private String authorization;
+
+    /**
+     * Get user autorization code
+     * @return
+     */
+
+    public String getAuthorization() {
+        return authorization;
+    }
+
+    /**
+     * Set user autorization code
+     * @param authorization
+     */
+    public void setAuthorization(String authorization) {
+        this.authorization = authorization;
+    }
 
     /**
      * User object constructor
