@@ -16,9 +16,7 @@
 
 package com.orainteractive.orachat.presenter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BasePresenter;
@@ -39,6 +37,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * Contains all logic related to
+ * login screen
  * Created by kamilabrito on 7/25/17.
  */
 
@@ -54,16 +54,24 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     Context context;
 
     @Inject
-    public LoginPresenter(){
+    public LoginPresenter() {
 
     }
 
-
+    /**
+     * Open view to register user
+     */
     public void openRegisterView() {
         getView().hideLoginView();
         getView().showRegisterView();
     }
 
+    /**
+     * Performs loggin with an existing user
+     *
+     * @param email
+     * @param password
+     */
     public void loginWithExistingUser(String email, String password) {
 
         Login login = new Login(email, password);
@@ -71,7 +79,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         if (login.getEmail().isEmpty() || login.getPassword().isEmpty()) {
             getView().showEmptyFieldError();
         } else {
-          Call<UserResponse> responseCall = mRetrofit.loginWithUser(login);
+            Call<UserResponse> responseCall = mRetrofit.loginWithUser(login);
 
             responseCall.enqueue(new Callback<UserResponse>() {
                 @Override
@@ -81,8 +89,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     headers.get(context.getString(R.string.authorization)).toString();
 
                     User user = mUserMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString());
-                    getView().openHomeScreen(user);
-                    mPreferences.saveUserOnStorage((Activity)getView(), user);
+                    getView().openHomeScreen();
+                    mPreferences.saveUserOnStorage(context, user);
                 }
 
                 @Override
@@ -94,6 +102,16 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     }
 
+    /**
+     * Sends information about new user during registration
+     * also performs login of the new user with the return from
+     * the server
+     *
+     * @param name
+     * @param email
+     * @param password
+     * @param passwordConfimation
+     */
     public void registerNewUser(String name, String email, String password, String passwordConfimation) {
         User newUser = new User();
         newUser.setName(name);
@@ -113,8 +131,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     headers.get(context.getString(R.string.authorization)).toString();
 
                     User user = mUserMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString());
-                    getView().openHomeScreen(user);
-                    mPreferences.saveUserOnStorage((Activity)getView(), user);
+                    getView().openHomeScreen();
+                    mPreferences.saveUserOnStorage(context, user);
                 }
 
                 @Override

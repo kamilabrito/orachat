@@ -14,32 +14,14 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.services;
+package com.orainteractive.orachat.view.home;
 
-import com.orainteractive.orachat.model.Login;
-import com.orainteractive.orachat.model.User;
-import com.orainteractive.orachat.model.UserResponse;
-
-import io.reactivex.Observable;
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
+import com.orainteractive.orachat.base.BaseView;
 
 /**
- * Created by kamilabrito on 7/22/17.
+ * Created by kamilabrito on 7/26/17.
  */
 
-public interface RetrofitService {
-
-    @POST("/auth/login")
-    Observable<UserResponse> loginWithExistingUser(@Body Login login);
-
-    @POST("/auth/login")
-    Call<UserResponse> loginWithUser(@Body Login login);
-
-    @POST("/users")
-    Call<UserResponse> createNewUser(@Body User newUser);
-
-
+public interface HomeView extends BaseView {
 
 }

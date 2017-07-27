@@ -14,18 +14,27 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.view;
+package com.orainteractive.orachat.view.fragment;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.orainteractive.orachat.R;
 
-public class HomeActivity extends AppCompatActivity {
+/**
+ * Created by kamilabrito on 7/27/17.
+ */
 
+public class AccountFragment extends Fragment {
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_account, container, false);
+
     }
 }

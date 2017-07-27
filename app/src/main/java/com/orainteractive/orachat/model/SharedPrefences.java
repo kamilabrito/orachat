@@ -16,7 +16,6 @@
 
 package com.orainteractive.orachat.model;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -30,28 +29,31 @@ import javax.inject.Inject;
 
 public class SharedPrefences {
 
+    private static final String USER_PREF_FILE = "user_pref_file";
+
     @Inject
     public SharedPrefences() {
     }
 
-    public void saveUserOnStorage(Activity activity, User userInformation) {
-        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+    public void saveUserOnStorage(Context context, User userInformation) {
+
+        SharedPreferences sharedPref = context.getSharedPreferences(USER_PREF_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(activity.getResources().getString(R.string.save_user_id), userInformation.getId());
-        editor.putString(activity.getResources().getString(R.string.save_user_name), userInformation.getName());
-        editor.putString(activity.getResources().getString(R.string.save_user_email), userInformation.getEmail());
-        editor.putString(activity.getResources().getString(R.string.save_user_authorization), userInformation.getAuthorization());
+        editor.putInt(context.getResources().getString(R.string.save_user_id), userInformation.getId());
+        editor.putString(context.getResources().getString(R.string.save_user_name), userInformation.getName());
+        editor.putString(context.getResources().getString(R.string.save_user_email), userInformation.getEmail());
+        editor.putString(context.getResources().getString(R.string.save_user_authorization), userInformation.getAuthorization());
         editor.commit();
     }
 
-    public User readUserFromStorage(Activity activity) {
+    public User readUserFromStorage(Context context) {
         User user = new User();
 
-        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
-        user.setId(sharedPref.getInt(activity.getResources().getString(R.string.save_user_id), 0));
-        user.setName(sharedPref.getString(activity.getResources().getString(R.string.save_user_name), null));
-        user.setEmail(sharedPref.getString(activity.getResources().getString(R.string.save_user_email), null));
-        user.setAuthorization(sharedPref.getString(activity.getResources().getString(R.string.save_user_authorization), null));
+        SharedPreferences sharedPref = context.getSharedPreferences(USER_PREF_FILE, Context.MODE_PRIVATE);
+        user.setId(sharedPref.getInt(context.getResources().getString(R.string.save_user_id), 0));
+        user.setName(sharedPref.getString(context.getResources().getString(R.string.save_user_name), null));
+        user.setEmail(sharedPref.getString(context.getResources().getString(R.string.save_user_email), null));
+        user.setAuthorization(sharedPref.getString(context.getResources().getString(R.string.save_user_authorization), null));
 
         return user;
     }

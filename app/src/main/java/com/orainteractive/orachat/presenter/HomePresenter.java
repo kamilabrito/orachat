@@ -14,32 +14,38 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.services;
+package com.orainteractive.orachat.presenter;
 
-import com.orainteractive.orachat.model.Login;
-import com.orainteractive.orachat.model.User;
-import com.orainteractive.orachat.model.UserResponse;
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+
+import com.orainteractive.orachat.R;
+import com.orainteractive.orachat.base.BasePresenter;
+import com.orainteractive.orachat.view.home.HomeView;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
 
 /**
- * Created by kamilabrito on 7/22/17.
+ * Created by kamilabrito on 7/27/17.
  */
 
-public interface RetrofitService {
+public class HomePresenter extends BasePresenter<HomeView> {
 
-    @POST("/auth/login")
-    Observable<UserResponse> loginWithExistingUser(@Body Login login);
+    @Inject
+    Context context;
 
-    @POST("/auth/login")
-    Call<UserResponse> loginWithUser(@Body Login login);
-
-    @POST("/users")
-    Call<UserResponse> createNewUser(@Body User newUser);
+    @Inject
+    public HomePresenter() {
+    }
 
 
 
+    @Override
+    public void update(Observable observable, Object o) {
+
+    }
 }

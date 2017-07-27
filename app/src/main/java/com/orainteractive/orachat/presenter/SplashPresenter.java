@@ -16,9 +16,12 @@
 
 package com.orainteractive.orachat.presenter;
 
+import android.content.Context;
 import android.os.Handler;
 
 import com.orainteractive.orachat.base.BasePresenter;
+import com.orainteractive.orachat.model.SharedPrefences;
+import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.view.splash.SplashView;
 
 import javax.inject.Inject;
@@ -27,21 +30,30 @@ import io.reactivex.Observable;
 
 
 /**
- *Splash screen presenter
+ * Contains all logic related to
+ * splash screen
  * Created by kamilabrito on 7/25/17.
  */
 
 public class SplashPresenter extends BasePresenter<SplashView> {
 
+    @Inject
+    Context context;
+    @Inject
+    SharedPrefences mPreferences;
 
     @Inject
     public SplashPresenter() {
 
     }
 
+    /**
+     * Shows splash scree for one second before
+     * changing into home screen or login screen
+     */
     public void startSplashTimer() {
         new Handler().postDelayed(
-                 new Runnable() {
+                new Runnable() {
                     @Override
                     public void run() {
                         if (isUserLoggedIn()) {
@@ -51,10 +63,19 @@ public class SplashPresenter extends BasePresenter<SplashView> {
                         }
 
                     }
-                }, 500);
+                }, 1000);
     }
 
-    public boolean isUserLoggedIn(){
+    /**
+     * Verifies if user is already logged in the application
+     *
+     * @return
+     */
+    public boolean isUserLoggedIn() {
+        User user = mPreferences.readUserFromStorage(context);
+        if (user.getAuthorization() != null) {
+            return true;
+        }
         return false;
     }
 

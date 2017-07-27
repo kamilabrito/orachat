@@ -31,5 +31,5 @@ public interface LoginView extends BaseView {
 
     void showEmptyFieldError();
 
-    void openHomeScreen(User user);
+    void openHomeScreen();
 }

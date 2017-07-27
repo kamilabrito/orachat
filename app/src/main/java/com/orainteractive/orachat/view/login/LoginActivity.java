@@ -31,6 +31,7 @@ import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
 import com.orainteractive.orachat.dagger.module.ChatModule;
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.presenter.LoginPresenter;
+import com.orainteractive.orachat.view.home.HomeActivity;
 
 import javax.inject.Inject;
 
@@ -131,9 +132,8 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     }
 
     @Override
-    public void openHomeScreen(User user) {
-        Log.e("login","openMainScreen: " + user.getEmail());
-
+    public void openHomeScreen() {
+        startActivity(new Intent(this, HomeActivity.class));
     }
 
 }
