@@ -29,6 +29,9 @@
         <activity
             android:name=".view.login.LoginActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.chatroom.ChatRoomActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

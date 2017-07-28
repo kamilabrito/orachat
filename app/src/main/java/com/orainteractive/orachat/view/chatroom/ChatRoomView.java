@@ -14,32 +14,17 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.presenter;
+package com.orainteractive.orachat.view.chatroom;
 
-import com.orainteractive.orachat.base.BasePresenter;
-import com.orainteractive.orachat.view.home.HomeView;
+import com.orainteractive.orachat.base.BaseView;
+import com.orainteractive.orachat.model.ChatMessage;
 
-import javax.inject.Inject;
-
-import io.reactivex.Observable;
+import java.util.List;
 
 /**
- * Contains all logic related to
- * home screen
- * Created by kamilabrito on 7/27/17.
+ * Created by kamilabrito on 7/28/17.
  */
 
-public class HomePresenter extends BasePresenter<HomeView> {
-
-    @Inject
-    public HomePresenter() {
-    }
-
-
-
-    @Override
-    public void update(Observable observable, Object o) {
-
-    }
-
+public interface ChatRoomView extends BaseView {
+    void loadChatMessages(List<ChatMessage> chatMessages);
 }

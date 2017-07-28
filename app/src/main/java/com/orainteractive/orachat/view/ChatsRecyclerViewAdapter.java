@@ -16,6 +16,7 @@
 
 package com.orainteractive.orachat.view;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +53,14 @@ public class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecycler
         final Chats currentChat = mChatsList.get(position);
 
         if (currentChat != null) {
+
+            View.OnClickListener listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(currentChat);
+                }
+            };
+            holder.cvChatCard.setOnClickListener(listener);
             holder.tvHeaderDate.setText(currentChat.getLast_chat_message().getCreated_at());
             holder.tvChatNameAndUser.setText(currentChat.getName() + " " + currentChat.getUsers().get(0).getName());
             holder.tvLastMessage.setText(currentChat.getLast_chat_message().getMessage());
@@ -79,6 +88,8 @@ public class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecycler
         TextView tvLastUserTime;
         @BindView(R.id.tv_chat_name_and_user)
         TextView tvChatNameAndUser;
+        @BindView(R.id.row_card_chat)
+        CardView cvChatCard;
 
         public ViewHolder(View itemView) {
             super(itemView);

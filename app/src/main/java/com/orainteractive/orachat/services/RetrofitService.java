@@ -20,6 +20,7 @@ import com.orainteractive.orachat.model.ChatsResponse;
 import com.orainteractive.orachat.model.Login;
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
+import com.orainteractive.orachat.model.mapper.ChatRoomResponse;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -49,5 +50,12 @@ public interface RetrofitService {
                                            @Header("Content-Type") String contentType,
                                            @Query("page") int page,
                                            @Query("limit") int limit);
+
+    @GET("/chats/{id}/chat_messages")
+    Observable<ChatRoomResponse> getChatRoomMessages(@Header("Authorization") String authorization,
+                                                     @Header("Content-Type") String contentType,
+                                                     @Query("id") int id,
+                                                     @Query("page") int page,
+                                                     @Query("limit") int limit);
 
 }

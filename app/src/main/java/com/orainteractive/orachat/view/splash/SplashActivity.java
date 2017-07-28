@@ -56,11 +56,13 @@ public class SplashActivity extends BaseActivity implements SplashView {
     @Override
     public void startMainActivity() {
         startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+        finish();
     }
 
     @Override
     public void starLoginActivity() {
         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+        finish();
     }
 
     @Override

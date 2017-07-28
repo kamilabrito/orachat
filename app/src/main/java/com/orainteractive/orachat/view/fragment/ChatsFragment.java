@@ -16,6 +16,7 @@
 
 package com.orainteractive.orachat.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,7 @@ import com.orainteractive.orachat.presenter.ChatPresenter;
 import com.orainteractive.orachat.presenter.HomePresenter;
 import com.orainteractive.orachat.view.ChatsRecyclerViewAdapter;
 import com.orainteractive.orachat.view.OnItemClickListener;
+import com.orainteractive.orachat.view.chatroom.ChatRoomActivity;
 import com.orainteractive.orachat.view.home.HomeView;
 
 import java.util.List;
@@ -74,8 +76,11 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
 
     @Override
     public void onItemClick(Chats item) {
+        Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+        intent.putExtra("CHAT_ID", item.getId());
+        startActivity(intent);
 
-
+        Log.e("click", "onItemClick: " + item.getName());
     }
 
     @Override
