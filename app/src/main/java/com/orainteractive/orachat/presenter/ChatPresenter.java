@@ -26,7 +26,6 @@ import com.orainteractive.orachat.model.SharedPrefences;
 import com.orainteractive.orachat.model.mapper.CommonMapper;
 import com.orainteractive.orachat.services.RetrofitService;
 import com.orainteractive.orachat.view.fragment.ChatsView;
-import com.orainteractive.orachat.view.home.HomeView;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ import io.reactivex.disposables.Disposable;
  * Created by kamilabrito on 7/27/17.
  */
 
-public class HomePresenter extends BasePresenter<HomeView> implements Observer<ChatsResponse> {
+public class ChatPresenter extends BasePresenter<ChatsView> implements Observer<ChatsResponse> {
 
     @Inject
     Context mContext;
@@ -55,7 +54,7 @@ public class HomePresenter extends BasePresenter<HomeView> implements Observer<C
     SharedPrefences mPreferences;
 
     @Inject
-    public HomePresenter() {
+    public ChatPresenter() {
     }
 
 
@@ -66,7 +65,6 @@ public class HomePresenter extends BasePresenter<HomeView> implements Observer<C
     }
 
     public void requestChatsList() {
-        Log.e("home", "requestChatsList");
         Observable<ChatsResponse> chatsResponseObservable = mRetrofit.getChatsList(getToken(), getContentType(), 1, 50);
         subscribe(chatsResponseObservable, this);
     }

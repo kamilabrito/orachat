@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.view.home;
+package com.orainteractive.orachat.view.fragment;
 
 import com.orainteractive.orachat.base.BaseView;
 import com.orainteractive.orachat.model.Chats;
@@ -22,11 +22,10 @@ import com.orainteractive.orachat.model.Chats;
 import java.util.List;
 
 /**
- * Created by kamilabrito on 7/26/17.
+ * Created by kamilabrito on 7/28/17.
  */
 
-public interface HomeView extends BaseView {
+public interface ChatsView extends BaseView{
 
     void loadChatsOnView(List<Chats> chats);
-
 }

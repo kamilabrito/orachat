@@ -22,18 +22,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BaseActivity;
-import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
-import com.orainteractive.orachat.dagger.module.ChatModule;
-import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.view.fragment.AccountFragment;
 import com.orainteractive.orachat.view.fragment.ChatsFragment;
-
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -41,7 +35,7 @@ import butterknife.BindView;
  * Created by kamilabrito on 7/27/17.
  */
 
-public class HomeActivity extends BaseActivity implements HomeView {
+public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.bn_home)
     BottomNavigationView mBnHome;
@@ -72,10 +66,10 @@ public class HomeActivity extends BaseActivity implements HomeView {
     private void handleBottomNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_chats:
-                changeFragment(new AccountFragment());
+                changeFragment(new ChatsFragment());
                 break;
             case R.id.action_account:
-                changeFragment(new ChatsFragment());
+                changeFragment(new AccountFragment());
                 break;
         }
     }
@@ -83,12 +77,6 @@ public class HomeActivity extends BaseActivity implements HomeView {
     @Override
     protected int getContentView() {
         return R.layout.activity_home;
-    }
-
-    @Override
-    public void loadChatsOnView(List<Chats> chats) {
-
-        Log.e("home", "chat: " + chats.get(0).getName());
     }
 
 }

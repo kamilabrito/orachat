@@ -18,7 +18,9 @@ package com.orainteractive.orachat.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.orainteractive.orachat.R;
@@ -26,6 +28,7 @@ import com.orainteractive.orachat.base.BaseFragment;
 import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
 import com.orainteractive.orachat.dagger.module.ChatModule;
 import com.orainteractive.orachat.model.Chats;
+import com.orainteractive.orachat.presenter.ChatPresenter;
 import com.orainteractive.orachat.presenter.HomePresenter;
 import com.orainteractive.orachat.view.ChatsRecyclerViewAdapter;
 import com.orainteractive.orachat.view.OnItemClickListener;
@@ -41,10 +44,10 @@ import butterknife.BindView;
  * Created by kamilabrito on 7/27/17.
  */
 
-public class ChatsFragment extends BaseFragment implements HomeView, OnItemClickListener {
+public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClickListener {
 
     @Inject
-    HomePresenter mPresenter;
+    ChatPresenter mPresenter;
 
     @BindView(R.id.rv_chats_list)
     RecyclerView rvChatsList;
@@ -72,18 +75,22 @@ public class ChatsFragment extends BaseFragment implements HomeView, OnItemClick
     @Override
     public void onItemClick(Chats item) {
 
+
     }
 
     @Override
     public void loadChatsOnView(List<Chats> chats) {
-
+        chatsRecyclerViewAdapter.addChats(chats);
+        rvChatsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvChatsList.setAdapter(chatsRecyclerViewAdapter);
+        chatsRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void resolveDaggerDependency() {
         DaggerChatComponent.builder()
                 .applicationComponent(getApplicationComponent())
-                .chatModule(new ChatModule(getActivity()))
+                .chatModule(new ChatModule(this))
                 .build().inject(this);
     }
 }

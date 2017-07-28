@@ -17,9 +17,12 @@
 package com.orainteractive.orachat.dagger.module;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 
 import com.orainteractive.orachat.dagger.scope.PerActivity;
 import com.orainteractive.orachat.services.RetrofitService;
+import com.orainteractive.orachat.view.fragment.ChatsFragment;
+import com.orainteractive.orachat.view.fragment.ChatsView;
 import com.orainteractive.orachat.view.home.HomeView;
 import com.orainteractive.orachat.view.login.LoginView;
 import com.orainteractive.orachat.view.splash.SplashView;
@@ -36,8 +39,14 @@ public class ChatModule {
 
     private Activity mView;
 
+    private Fragment mViewFragment;
+
     public ChatModule(Activity view) {
         mView = view;
+    }
+
+    public ChatModule(Fragment mViewFragment) {
+        this.mViewFragment = mViewFragment;
     }
 
     @PerActivity
@@ -60,8 +69,8 @@ public class ChatModule {
 
     @PerActivity
     @Provides
-    HomeView provideHomeView() {
-        return (HomeView) mView;
+    ChatsView provideChatView() {
+        return (ChatsView) mViewFragment;
     }
 
 }

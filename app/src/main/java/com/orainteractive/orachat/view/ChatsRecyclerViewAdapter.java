@@ -17,11 +17,16 @@
 package com.orainteractive.orachat.view;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.orainteractive.orachat.R;
+import com.orainteractive.orachat.model.Chats;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,22 +38,35 @@ import butterknife.ButterKnife;
 public class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecyclerViewAdapter.ViewHolder> {
 
     private OnItemClickListener onItemClickListener;
-
-
+    private List<Chats> mChatsList = new ArrayList<>();
 
     @Override
-    public ChatsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat, null);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ChatsRecyclerViewAdapter.ViewHolder holder, int position) {
+        final Chats currentChat = mChatsList.get(position);
+
+        if (currentChat != null) {
+            holder.tvHeaderDate.setText(currentChat.getLast_chat_message().getCreated_at());
+            holder.tvChatNameAndUser.setText(currentChat.getName() + " " + currentChat.getUsers().get(0).getName());
+            holder.tvLastMessage.setText(currentChat.getLast_chat_message().getMessage());
+            holder.tvLastUserTime.setText(currentChat.getLast_chat_message().getCreated_at());
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return (null != mChatsList ? mChatsList.size() : 0);
+    }
+
+    public void addChats(List<Chats> chats) {
+        mChatsList.addAll(chats);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

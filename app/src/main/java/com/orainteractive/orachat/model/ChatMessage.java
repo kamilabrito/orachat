@@ -23,12 +23,12 @@ package com.orainteractive.orachat.model;
 
 public class ChatMessage {
 
-    public int id;
-    public int chat_id;
-    public int user_id;
-    public String message;
-    public String created_at;
-    public User user;
+    private int id;
+    private int chat_id;
+    private int user_id;
+    private String message;
+    private String created_at;
+    private User user;
 
     /**
      * Chat model constructor
