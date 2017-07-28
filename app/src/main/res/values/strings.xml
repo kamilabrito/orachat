@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">orachat</string>
+    <string name="app_name">Ora Chat</string>
 
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -31,4 +31,6 @@
     <string name="authorization">Authorization</string>
     <string name="menu_chats">Chats</string>
     <string name="menu_account">Account</string>
+    <string name="content_type">Content-Type</string>
+    <string name="save_user_content_type">content_type</string>
 </resources>

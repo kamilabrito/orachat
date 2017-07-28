@@ -16,27 +16,42 @@
 
 package com.orainteractive.orachat.presenter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
-import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BasePresenter;
+import com.orainteractive.orachat.model.Chats;
+import com.orainteractive.orachat.model.ChatsResponse;
+import com.orainteractive.orachat.model.SharedPrefences;
+import com.orainteractive.orachat.model.mapper.CommonMapper;
+import com.orainteractive.orachat.services.RetrofitService;
 import com.orainteractive.orachat.view.home.HomeView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 /**
+ * Contains all logic related to
+ * home screen
  * Created by kamilabrito on 7/27/17.
  */
 
-public class HomePresenter extends BasePresenter<HomeView> {
+public class HomePresenter extends BasePresenter<HomeView> implements Observer<ChatsResponse> {
 
     @Inject
-    Context context;
+    Context mContext;
+    @Inject
+    RetrofitService mRetrofit;
+    @Inject
+    CommonMapper mMapper;
+    @Inject
+    SharedPrefences mPreferences;
 
     @Inject
     public HomePresenter() {
@@ -47,5 +62,40 @@ public class HomePresenter extends BasePresenter<HomeView> {
     @Override
     public void update(Observable observable, Object o) {
 
+    }
+
+    public void requestChatsList() {
+        Log.e("home", "requestChatsList");
+        Observable<ChatsResponse> chatsResponseObservable = mRetrofit.getChatsList(getToken(), getContentType(), 1, 50);
+        subscribe(chatsResponseObservable, this);
+    }
+
+    @Override
+    public void onSubscribe(@NonNull Disposable d) {
+
+    }
+
+    @Override
+    public void onNext(@NonNull ChatsResponse chatsResponse) {
+        List<Chats> chats = mMapper.mapChats(chatsResponse);
+        getView().loadChatsOnView(chats);
+    }
+
+    @Override
+    public void onError(@NonNull Throwable e) {
+        Log.e("home", " ERROR requestChatsList" + e.getMessage());
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
+
+    public String getToken() {
+        return mPreferences.readUserFromStorage(mContext).getAuthorization();
+    }
+
+    public String getContentType() {
+        return mPreferences.readUserFromStorage(mContext).getContentType();
     }
 }

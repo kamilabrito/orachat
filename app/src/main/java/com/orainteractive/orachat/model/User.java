@@ -29,6 +29,7 @@ public class User {
     private String password;
     private String password_confirmation;
     private String authorization;
+    private String contentType;
 
     /**
      * Get user autorization code
@@ -147,5 +148,17 @@ public class User {
      */
     public void setPasswordConfirmation(String password_confirmation) {
         this.password_confirmation = password_confirmation;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getPassword_confirmation() {
+        return password_confirmation;
+    }
+
+    public String getContentType() {
+        return contentType;
     }
 }

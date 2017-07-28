@@ -43,6 +43,8 @@ public class SharedPrefences {
         editor.putString(context.getResources().getString(R.string.save_user_name), userInformation.getName());
         editor.putString(context.getResources().getString(R.string.save_user_email), userInformation.getEmail());
         editor.putString(context.getResources().getString(R.string.save_user_authorization), userInformation.getAuthorization());
+        editor.putString(context.getResources().getString(R.string.save_user_content_type), userInformation.getContentType());
+
         editor.commit();
     }
 
@@ -54,6 +56,7 @@ public class SharedPrefences {
         user.setName(sharedPref.getString(context.getResources().getString(R.string.save_user_name), null));
         user.setEmail(sharedPref.getString(context.getResources().getString(R.string.save_user_email), null));
         user.setAuthorization(sharedPref.getString(context.getResources().getString(R.string.save_user_authorization), null));
+        user.setContentType(sharedPref.getString(context.getResources().getString(R.string.save_user_content_type), null));
 
         return user;
     }

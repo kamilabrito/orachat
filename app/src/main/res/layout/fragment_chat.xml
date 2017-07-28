@@ -20,10 +20,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_chats_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="tudo na paz e ctg?"
-        android:gravity="center"/>
+        android:layout_margin="16dp">
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

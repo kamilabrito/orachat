@@ -18,23 +18,72 @@ package com.orainteractive.orachat.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.orainteractive.orachat.R;
+import com.orainteractive.orachat.base.BaseFragment;
+import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
+import com.orainteractive.orachat.dagger.module.ChatModule;
+import com.orainteractive.orachat.model.Chats;
+import com.orainteractive.orachat.presenter.HomePresenter;
+import com.orainteractive.orachat.view.ChatsRecyclerViewAdapter;
+import com.orainteractive.orachat.view.OnItemClickListener;
+import com.orainteractive.orachat.view.home.HomeView;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
 
 /**
  * Created by kamilabrito on 7/27/17.
  */
 
-public class ChatsFragment extends Fragment {
+public class ChatsFragment extends BaseFragment implements HomeView, OnItemClickListener {
 
-    @Nullable
+    @Inject
+    HomePresenter mPresenter;
+
+    @BindView(R.id.rv_chats_list)
+    RecyclerView rvChatsList;
+
+    private ChatsRecyclerViewAdapter chatsRecyclerViewAdapter;
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        chatsRecyclerViewAdapter = new ChatsRecyclerViewAdapter();
+        chatsRecyclerViewAdapter.setOnItemClickListener(this);
+
+        mPresenter.requestChatsList();
+
+
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_chat;
+    }
+
+    @Override
+    public void onItemClick(Chats item) {
+
+    }
+
+    @Override
+    public void loadChatsOnView(List<Chats> chats) {
+
+    }
+
+    @Override
+    protected void resolveDaggerDependency() {
+        DaggerChatComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .chatModule(new ChatModule(getActivity()))
+                .build().inject(this);
     }
 }

@@ -14,23 +14,32 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.view.fragment;
+package com.orainteractive.orachat.model;
 
-import com.orainteractive.orachat.R;
-import com.orainteractive.orachat.base.BaseFragment;
+import java.util.List;
 
 /**
  * Created by kamilabrito on 7/27/17.
  */
 
-public class AccountFragment extends BaseFragment {
+public class ChatsResponse {
 
+    private List<Chats> data;
+    private Pagination meta;
 
+    public List<Chats> getData() {
+        return data;
+    }
 
+    public void setData(List<Chats> data) {
+        this.data = data;
+    }
 
+    public Pagination getMeta() {
+        return meta;
+    }
 
-    @Override
-    protected int getContentView() {
-        return R.layout.fragment_account;
+    public void setMeta(Pagination meta) {
+        this.meta = meta;
     }
 }

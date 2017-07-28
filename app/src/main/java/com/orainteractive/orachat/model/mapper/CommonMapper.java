@@ -18,8 +18,13 @@ package com.orainteractive.orachat.model.mapper;
 
 import android.util.Log;
 
+import com.orainteractive.orachat.model.Chats;
+import com.orainteractive.orachat.model.ChatsResponse;
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,26 +34,32 @@ import javax.inject.Inject;
  * Created by kamilabrito on 7/26/17.
  */
 
-public class UserMapper {
+public class CommonMapper {
 
     @Inject
-    public UserMapper() {
+    public CommonMapper() {
     }
 
-    public User mapUser(UserResponse response, String authorization) {
-        UserResponse userResponse = new UserResponse();
+    public User mapUser(UserResponse response, String authorization, String contentType) {
         User myUser = new User();
 
         if (response != null) {
-            userResponse.setData(response.getData());
-            userResponse.setMeta(response.getMeta());
-
-            myUser.setId(userResponse.getData().getId());
-            myUser.setName(userResponse.getData().getName());
-            myUser.setEmail(userResponse.getData().getEmail());
+            myUser.setId(response.getData().getId());
+            myUser.setName(response.getData().getName());
+            myUser.setEmail(response.getData().getEmail());
             myUser.setAuthorization(authorization);
+            myUser.setContentType(contentType);
         }
 
         return myUser;
+    }
+
+    public List<Chats> mapChats(ChatsResponse response) {
+        List<Chats> chatsList = new ArrayList<>();
+
+        if(response != null) {
+            chatsList.addAll(response.getData());
+        }
+        return chatsList;
     }
 }

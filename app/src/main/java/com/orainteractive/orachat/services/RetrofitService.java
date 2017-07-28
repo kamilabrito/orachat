@@ -16,6 +16,7 @@
 
 package com.orainteractive.orachat.services;
 
+import com.orainteractive.orachat.model.ChatsResponse;
 import com.orainteractive.orachat.model.Login;
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
@@ -23,7 +24,10 @@ import com.orainteractive.orachat.model.UserResponse;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by kamilabrito on 7/22/17.
@@ -40,6 +44,10 @@ public interface RetrofitService {
     @POST("/users")
     Call<UserResponse> createNewUser(@Body User newUser);
 
-
+    @GET("/chats")
+    Observable<ChatsResponse> getChatsList(@Header("Authorization") String authorization,
+                                           @Header("Content-Type") String contentType,
+                                           @Query("page") int page,
+                                           @Query("limit") int limit);
 
 }

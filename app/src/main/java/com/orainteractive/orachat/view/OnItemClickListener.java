@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.view.fragment;
+package com.orainteractive.orachat.view;
 
-import com.orainteractive.orachat.R;
-import com.orainteractive.orachat.base.BaseFragment;
+import com.orainteractive.orachat.model.Chats;
 
 /**
- * Created by kamilabrito on 7/27/17.
+ * Interface to represent item click on recyclerview
+ * Created by kamilabrito on 5/8/17.
  */
 
-public class AccountFragment extends BaseFragment {
-
-
-
-
-
-    @Override
-    protected int getContentView() {
-        return R.layout.fragment_account;
-    }
+public interface OnItemClickListener {
+    void onItemClick(Chats item);
 }

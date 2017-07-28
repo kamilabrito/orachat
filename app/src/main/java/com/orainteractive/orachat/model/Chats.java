@@ -44,6 +44,9 @@ public class Chats {
         this.last_chat_message = last_chat_message;
     }
 
+    public Chats() {
+    }
+
     /**
      * Get chats id
      * @return

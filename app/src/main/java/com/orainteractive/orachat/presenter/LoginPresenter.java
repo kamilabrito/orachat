@@ -24,7 +24,7 @@ import com.orainteractive.orachat.model.Login;
 import com.orainteractive.orachat.model.SharedPrefences;
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
-import com.orainteractive.orachat.model.mapper.UserMapper;
+import com.orainteractive.orachat.model.mapper.CommonMapper;
 import com.orainteractive.orachat.services.RetrofitService;
 import com.orainteractive.orachat.view.login.LoginView;
 
@@ -47,7 +47,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     @Inject
     RetrofitService mRetrofit;
     @Inject
-    UserMapper mUserMapper;
+    CommonMapper mCommonMapper;
     @Inject
     SharedPrefences mPreferences;
     @Inject
@@ -86,9 +86,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
 
                     Headers headers = response.headers();
-                    headers.get(context.getString(R.string.authorization)).toString();
 
-                    User user = mUserMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString());
+                    User user = mCommonMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString(),
+                            headers.get(context.getResources().getString(R.string.content_type)).toString());
                     getView().openHomeScreen();
                     mPreferences.saveUserOnStorage(context, user);
                 }
@@ -128,9 +128,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 @Override
                 public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                     Headers headers = response.headers();
-                    headers.get(context.getString(R.string.authorization)).toString();
 
-                    User user = mUserMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString());
+                    User user = mCommonMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString(),
+                            headers.get(context.getResources().getString(R.string.content_type)).toString());
                     getView().openHomeScreen();
                     mPreferences.saveUserOnStorage(context, user);
                 }
