@@ -17,17 +17,15 @@
 package com.orainteractive.orachat.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
+import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BasePresenter;
-import com.orainteractive.orachat.model.Chats;
-import com.orainteractive.orachat.model.ChatsResponse;
 import com.orainteractive.orachat.model.SharedPrefences;
+import com.orainteractive.orachat.model.User;
+import com.orainteractive.orachat.model.UserResponse;
 import com.orainteractive.orachat.model.mapper.CommonMapper;
 import com.orainteractive.orachat.services.RetrofitService;
-import com.orainteractive.orachat.view.fragment.chats.ChatsView;
-
-import java.util.List;
+import com.orainteractive.orachat.view.fragment.account.AccountView;
 
 import javax.inject.Inject;
 
@@ -37,36 +35,44 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Contains all logic related to
- * home screen
- * Created by kamilabrito on 7/27/17.
+ * Created by kamilabrito on 7/29/17.
  */
 
-public class ChatPresenter extends BasePresenter<ChatsView> implements Observer<ChatsResponse> {
+public class AccountPresenter extends BasePresenter<AccountView> implements Observer<UserResponse> {
 
     @Inject
-    Context mContext;
+    SharedPrefences mPreferences;
     @Inject
     RetrofitService mRetrofit;
     @Inject
+    Context mContext;
+    @Inject
     CommonMapper mMapper;
-    @Inject
-    SharedPrefences mPreferences;
 
     @Inject
-    public ChatPresenter() {
+    public AccountPresenter() {
     }
-
-
 
     @Override
     public void update(Observable observable, Object o) {
 
     }
 
-    public void requestChatsList() {
-        Observable<ChatsResponse> chatsResponseObservable = mRetrofit.getChatsList(getToken(), getContentType(), 1, 50);
-        subscribe(chatsResponseObservable, this);
+    public void updateAccountInformation(String name, String email, String password, String passwordConfirmation) {
+
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirmation.isEmpty()) {
+            getView().showErrorToast();
+        } else {
+            User updateUser = new User();
+            updateUser.setName(name);
+            updateUser.setEmail(email);
+            updateUser.setPassword(password);
+            updateUser.setPasswordConfirmation(passwordConfirmation);
+
+            Observable<UserResponse> userResponseObserver = mRetrofit.updateUserInformation(getToken(), getContentType(), updateUser);
+            subscribe(userResponseObserver, this);
+
+        }
     }
 
     @Override
@@ -75,14 +81,15 @@ public class ChatPresenter extends BasePresenter<ChatsView> implements Observer<
     }
 
     @Override
-    public void onNext(@NonNull ChatsResponse chatsResponse) {
-        List<Chats> chats = mMapper.mapChats(chatsResponse);
-        getView().loadChatsOnView(chats);
+    public void onNext(@NonNull UserResponse userResponse) {
+        User user = mMapper.mapUser(userResponse, getToken(), getContentType());
+        mPreferences.saveUserOnStorage(mContext, user);
+        getView().confirmUpdate();
     }
 
     @Override
     public void onError(@NonNull Throwable e) {
-        Log.e("home", " ERROR requestChatsList" + e.getMessage());
+
     }
 
     @Override
@@ -96,9 +103,5 @@ public class ChatPresenter extends BasePresenter<ChatsView> implements Observer<
 
     public String getContentType() {
         return mPreferences.readUserFromStorage(mContext).getContentType();
-    }
-
-    public void addNewChatToList(Chats newChat) {
-        getView().showNewChatOnList(newChat);
     }
 }

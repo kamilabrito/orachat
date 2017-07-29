@@ -15,14 +15,43 @@
   ~ limitations under the License.
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <EditText
+        android:id="@+id/et_account_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:hint="@string/name"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/et_account_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:hint="@string/email"/>
+
+    <EditText
+        android:id="@+id/et_account_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:hint="@string/password"/>
+
+    <EditText
+        android:id="@+id/et_account_password_confirmation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:hint="@string/confirm_password"/>
+
+    <Button
+        android:id="@+id/btn_account_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"/>
+
+</LinearLayout>

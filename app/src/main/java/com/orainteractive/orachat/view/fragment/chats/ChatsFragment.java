@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.view.fragment;
+package com.orainteractive.orachat.view.fragment.chats;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.orainteractive.orachat.R;
@@ -72,7 +71,6 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
         }
 
         mPresenter.requestChatsList();
-
 
     }
 

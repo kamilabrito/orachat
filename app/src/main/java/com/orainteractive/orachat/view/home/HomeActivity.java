@@ -23,7 +23,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -37,8 +36,8 @@ import com.orainteractive.orachat.dagger.module.ChatModule;
 import com.orainteractive.orachat.model.ChatCreate;
 import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.presenter.HomePresenter;
-import com.orainteractive.orachat.view.fragment.AccountFragment;
-import com.orainteractive.orachat.view.fragment.ChatsFragment;
+import com.orainteractive.orachat.view.fragment.account.AccountFragment;
+import com.orainteractive.orachat.view.fragment.chats.ChatsFragment;
 
 import javax.inject.Inject;
 

@@ -22,8 +22,8 @@ import android.support.v4.app.Fragment;
 import com.orainteractive.orachat.dagger.scope.PerActivity;
 import com.orainteractive.orachat.services.RetrofitService;
 import com.orainteractive.orachat.view.chatroom.ChatRoomView;
-import com.orainteractive.orachat.view.fragment.ChatsFragment;
-import com.orainteractive.orachat.view.fragment.ChatsView;
+import com.orainteractive.orachat.view.fragment.account.AccountView;
+import com.orainteractive.orachat.view.fragment.chats.ChatsView;
 import com.orainteractive.orachat.view.home.HomeView;
 import com.orainteractive.orachat.view.login.LoginView;
 import com.orainteractive.orachat.view.splash.SplashView;
@@ -78,6 +78,12 @@ public class ChatModule {
     @Provides
     ChatsView provideChatView() {
         return (ChatsView) mViewFragment;
+    }
+
+    @PerActivity
+    @Provides
+    AccountView provideAccountView() {
+        return (AccountView) mViewFragment;
     }
 
     @PerActivity

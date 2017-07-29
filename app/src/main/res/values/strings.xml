@@ -23,7 +23,7 @@
     <string name="name">Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
-    <string name="empty_field">Enter email and password</string>
+    <string name="empty_field">Enter all the information</string>
     <string name="save_user_id">store_user_id</string>
     <string name="save_user_name">store_user_name</string>
     <string name="save_user_email">store_user_email</string>
@@ -38,4 +38,6 @@
     <string name="create_chat">Create chat</string>
     <string name="edit_chat">Edit</string>
     <string name="edit_chat_error">Error while editing chat</string>
+    <string name="save">Save</string>
+    <string name="user_information_updated">User information successful updated</string>
 </resources>

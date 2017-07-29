@@ -72,11 +72,17 @@ public interface RetrofitService {
                                                           @Header("Content-Type") String contentType,
                                                           @Body ChatCreate chat);
 
-    @PATCH("/chats")
+    @PATCH("/chats/{id}")
     Observable<ChatCreateResponse> updateChat(@Header("Authorization") String authorization,
                                                  @Header("Content-Type") String contentType,
                                                  @Query ("id") int id,
                                                  @Body ChatCreate chat);
+
+    @PATCH("/users/current")
+    Observable<UserResponse> updateUserInformation (@Header("Authorization") String authorization,
+                                              @Header("Content-Type") String contentType,
+                                              @Body User user);
+
 
 
 }

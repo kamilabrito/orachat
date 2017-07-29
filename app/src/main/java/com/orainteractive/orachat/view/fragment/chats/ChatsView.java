@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.view.fragment;
+package com.orainteractive.orachat.view.fragment.chats;
 
-import com.orainteractive.orachat.R;
-import com.orainteractive.orachat.base.BaseFragment;
+import com.orainteractive.orachat.base.BaseView;
+import com.orainteractive.orachat.model.Chats;
+
+import java.util.List;
 
 /**
- * Created by kamilabrito on 7/27/17.
+ * Created by kamilabrito on 7/28/17.
  */
 
-public class AccountFragment extends BaseFragment {
+public interface ChatsView extends BaseView{
 
+    void loadChatsOnView(List<Chats> chats);
 
-
-
-
-    @Override
-    protected int getContentView() {
-        return R.layout.fragment_account;
-    }
+    void showNewChatOnList(Chats newChat);
 }
