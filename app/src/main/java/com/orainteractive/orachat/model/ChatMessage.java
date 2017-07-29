@@ -16,12 +16,16 @@
 
 package com.orainteractive.orachat.model;
 
+import java.io.Serializable;
+
 /**
  * ChatMessage object model
  * Created by kamilabrito on 7/25/17.
  */
 
-public class ChatMessage {
+public class ChatMessage implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private int chat_id;

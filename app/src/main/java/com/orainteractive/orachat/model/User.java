@@ -16,13 +16,17 @@
 
 package com.orainteractive.orachat.model;
 
+import java.io.Serializable;
+
 /**
  * User object model
  * Created by kamilabrito on 7/25/17.
  */
 
-public class User {
+public class User implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     private int id;
     private String name;
     private String email;

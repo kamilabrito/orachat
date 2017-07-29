@@ -27,6 +27,7 @@ import java.util.List;
 
 public interface HomeView extends BaseView {
 
-    void loadChatsOnView(List<Chats> chats);
+    void showNewChatView();
 
+    void updateChatList(Chats chatMessages);
 }

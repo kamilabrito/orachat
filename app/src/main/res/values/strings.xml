@@ -33,4 +33,7 @@
     <string name="menu_account">Account</string>
     <string name="content_type">Content-Type</string>
     <string name="save_user_content_type">content_type</string>
+    <string name="chat_name">Chat room name</string>
+    <string name="chat_first_message">First message</string>
+    <string name="create_chat">Create chat</string>
 </resources>

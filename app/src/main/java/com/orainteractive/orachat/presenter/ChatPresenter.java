@@ -97,4 +97,8 @@ public class ChatPresenter extends BasePresenter<ChatsView> implements Observer<
     public String getContentType() {
         return mPreferences.readUserFromStorage(mContext).getContentType();
     }
+
+    public void addNewChatToList(Chats newChat) {
+        getView().showNewChatOnList(newChat);
+    }
 }

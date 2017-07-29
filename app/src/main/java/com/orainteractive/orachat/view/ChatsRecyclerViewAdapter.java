@@ -78,6 +78,12 @@ public class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecycler
         mChatsList.addAll(chats);
     }
 
+    public void addNewChat(Chats newChat) {
+        if (newChat != null) {
+            mChatsList.add(newChat);
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_chat_header_date)

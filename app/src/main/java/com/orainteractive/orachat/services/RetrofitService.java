@@ -16,6 +16,8 @@
 
 package com.orainteractive.orachat.services;
 
+import com.orainteractive.orachat.model.ChatCreate;
+import com.orainteractive.orachat.model.ChatCreateResponse;
 import com.orainteractive.orachat.model.ChatMessage;
 import com.orainteractive.orachat.model.ChatRoomSend;
 import com.orainteractive.orachat.model.ChatRoomSendResponse;
@@ -66,6 +68,11 @@ public interface RetrofitService {
                                                           @Header("Content-Type") String contentType,
                                                           @Query("id") int id,
                                                           @Body ChatRoomSend message);
+
+    @POST("/chats")
+    Observable<ChatCreateResponse> createNewChat(@Header("Authorization") String authorization,
+                                                          @Header("Content-Type") String contentType,
+                                                          @Body ChatCreate chat);
 
 
 

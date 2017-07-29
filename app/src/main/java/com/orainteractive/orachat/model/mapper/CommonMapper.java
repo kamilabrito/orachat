@@ -16,6 +16,7 @@
 
 package com.orainteractive.orachat.model.mapper;
 
+import com.orainteractive.orachat.model.ChatCreateResponse;
 import com.orainteractive.orachat.model.ChatMessage;
 import com.orainteractive.orachat.model.ChatRoomResponse;
 import com.orainteractive.orachat.model.ChatRoomSendResponse;
@@ -86,5 +87,17 @@ public class CommonMapper {
             chatMessage.setUser_id(chatRoomSendResponse.getData().getUser_id());
         }
         return chatMessage;
+    }
+
+    public Chats mapCreateChat(ChatCreateResponse chatCreateResponse) {
+        Chats chat = new Chats();
+
+        if (chatCreateResponse != null) {
+            chat.setId(chatCreateResponse.getData().getId());
+            chat.setLast_chat_message(chatCreateResponse.getData().getLast_chat_message());
+            chat.setName(chatCreateResponse.getData().getName());
+            chat.setUsers(chatCreateResponse.getData().getUsers());
+        }
+        return chat;
     }
 }

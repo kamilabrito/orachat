@@ -16,6 +16,7 @@
 
 package com.orainteractive.orachat.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -23,7 +24,9 @@ import java.util.List;
  * Created by kamilabrito on 7/25/17.
  */
 
-public class Chats {
+public class Chats implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     public int id;
     public String name;

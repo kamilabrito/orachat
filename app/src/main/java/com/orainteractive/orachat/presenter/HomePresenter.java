@@ -16,12 +16,27 @@
 
 package com.orainteractive.orachat.presenter;
 
+import android.content.Context;
+
 import com.orainteractive.orachat.base.BasePresenter;
+import com.orainteractive.orachat.model.ChatCreate;
+import com.orainteractive.orachat.model.ChatCreateResponse;
+import com.orainteractive.orachat.model.ChatMessage;
+import com.orainteractive.orachat.model.Chats;
+import com.orainteractive.orachat.model.ChatsResponse;
+import com.orainteractive.orachat.model.SharedPrefences;
+import com.orainteractive.orachat.model.mapper.CommonMapper;
+import com.orainteractive.orachat.services.RetrofitService;
 import com.orainteractive.orachat.view.home.HomeView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Contains all logic related to
@@ -29,12 +44,20 @@ import io.reactivex.Observable;
  * Created by kamilabrito on 7/27/17.
  */
 
-public class HomePresenter extends BasePresenter<HomeView> {
+public class HomePresenter extends BasePresenter<HomeView> implements Observer<ChatCreateResponse> {
+
+    @Inject
+    RetrofitService mRetrofit;
+    @Inject
+    CommonMapper mMapper;
+    @Inject
+    SharedPrefences mPreferences;
+    @Inject
+    Context mContext;
 
     @Inject
     public HomePresenter() {
     }
-
 
 
     @Override
@@ -42,4 +65,41 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
     }
 
+    public void openNewChatScreen() {
+        getView().showNewChatView();
+    }
+
+    public void createNewChat(ChatCreate chatCreate) {
+        Observable<ChatCreateResponse> chatsCreateResponseObservable = mRetrofit.createNewChat(getToken(), getContentType(), chatCreate);
+        subscribe(chatsCreateResponseObservable, this);
+    }
+
+    @Override
+    public void onSubscribe(@NonNull Disposable d) {
+
+    }
+
+    @Override
+    public void onNext(@NonNull ChatCreateResponse chatCreateResponse) {
+        Chats chatMessages = mMapper.mapCreateChat(chatCreateResponse);
+        getView().updateChatList(chatMessages);
+    }
+
+    @Override
+    public void onError(@NonNull Throwable e) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
+
+    public String getToken() {
+        return mPreferences.readUserFromStorage(mContext).getAuthorization();
+    }
+
+    public String getContentType() {
+        return mPreferences.readUserFromStorage(mContext).getContentType();
+    }
 }

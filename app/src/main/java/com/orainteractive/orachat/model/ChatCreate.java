@@ -14,20 +14,33 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.view.fragment;
-
-import com.orainteractive.orachat.base.BaseView;
-import com.orainteractive.orachat.model.Chats;
-
-import java.util.List;
+package com.orainteractive.orachat.model;
 
 /**
  * Created by kamilabrito on 7/28/17.
  */
 
-public interface ChatsView extends BaseView{
+public class ChatCreate {
 
-    void loadChatsOnView(List<Chats> chats);
+    private String name;
+    private String message;
 
-    void showNewChatOnList(Chats newChat);
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ChatCreate(String s, String s1) {
+    }
 }

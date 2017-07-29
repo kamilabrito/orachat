@@ -64,6 +64,15 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
         chatsRecyclerViewAdapter = new ChatsRecyclerViewAdapter();
         chatsRecyclerViewAdapter.setOnItemClickListener(this);
 
+        try{
+            Chats newChat = (Chats) getArguments().getSerializable("NEW_CHAT");
+            if (newChat != null) {
+                mPresenter.addNewChatToList(newChat);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         mPresenter.requestChatsList();
 
 
@@ -88,6 +97,15 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
         chatsRecyclerViewAdapter.addChats(chats);
         rvChatsList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvChatsList.setAdapter(chatsRecyclerViewAdapter);
+        chatsRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showNewChatOnList(Chats newChat) {
+        chatsRecyclerViewAdapter.addNewChat(newChat);
+        rvChatsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvChatsList.setAdapter(chatsRecyclerViewAdapter);
+        rvChatsList.smoothScrollToPosition(chatsRecyclerViewAdapter.getItemCount()-1);
         chatsRecyclerViewAdapter.notifyDataSetChanged();
     }
 

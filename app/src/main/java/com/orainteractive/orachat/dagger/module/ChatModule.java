@@ -70,6 +70,12 @@ public class ChatModule {
 
     @PerActivity
     @Provides
+    HomeView provideHomeView() {
+        return (HomeView) mView;
+    }
+
+    @PerActivity
+    @Provides
     ChatsView provideChatView() {
         return (ChatsView) mViewFragment;
     }
