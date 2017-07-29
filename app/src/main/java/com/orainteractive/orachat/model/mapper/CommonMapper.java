@@ -42,6 +42,14 @@ public class CommonMapper {
     public CommonMapper() {
     }
 
+    /**
+     * Maps user information retrieved from the server
+     *
+     * @param response
+     * @param authorization
+     * @param contentType
+     * @return
+     */
     public User mapUser(UserResponse response, String authorization, String contentType) {
         User myUser = new User();
 
@@ -56,25 +64,43 @@ public class CommonMapper {
         return myUser;
     }
 
+    /**
+     * Maps chats response received from the server
+     *
+     * @param response
+     * @return
+     */
     public List<Chats> mapChats(ChatsResponse response) {
         List<Chats> chatsList = new ArrayList<>();
 
-        if(response != null) {
+        if (response != null) {
             chatsList.addAll(response.getData());
         }
         return chatsList;
     }
 
+    /**
+     * Maps the list of chat rooms response from the server
+     *
+     * @param chatRoomResponse
+     * @return
+     */
     public List<ChatMessage> mapChatRoom(ChatRoomResponse chatRoomResponse) {
         List<ChatMessage> chatsMessageList = new ArrayList<>();
 
-        if(chatRoomResponse != null) {
+        if (chatRoomResponse != null) {
             chatsMessageList.addAll(chatRoomResponse.getData());
         }
 
         return chatsMessageList;
     }
 
+    /**
+     * Maps response from the server after sending new message in chat
+     *
+     * @param chatRoomSendResponse
+     * @return
+     */
     public ChatMessage mapChatRoomSend(ChatRoomSendResponse chatRoomSendResponse) {
         ChatMessage chatMessage = new ChatMessage();
 
@@ -89,6 +115,12 @@ public class CommonMapper {
         return chatMessage;
     }
 
+    /**
+     * Maps response from server after creating or editing chat room
+     *
+     * @param chatCreateResponse
+     * @return
+     */
     public Chats mapCreateChat(ChatCreateResponse chatCreateResponse) {
         Chats chat = new Chats();
 
