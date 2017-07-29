@@ -48,6 +48,10 @@ public class ChatMessage {
         this.user = user;
     }
 
+    public ChatMessage() {
+
+    }
+
     /**
      * Get chat message id
      * @return

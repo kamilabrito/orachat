@@ -16,11 +16,14 @@
 
 package com.orainteractive.orachat.services;
 
+import com.orainteractive.orachat.model.ChatMessage;
+import com.orainteractive.orachat.model.ChatRoomSend;
+import com.orainteractive.orachat.model.ChatRoomSendResponse;
 import com.orainteractive.orachat.model.ChatsResponse;
 import com.orainteractive.orachat.model.Login;
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
-import com.orainteractive.orachat.model.mapper.ChatRoomResponse;
+import com.orainteractive.orachat.model.ChatRoomResponse;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -57,5 +60,13 @@ public interface RetrofitService {
                                                      @Query("id") int id,
                                                      @Query("page") int page,
                                                      @Query("limit") int limit);
+
+    @POST("/chats/{id}/chat_messages")
+    Observable<ChatRoomSendResponse> sendChatRoomMessages(@Header("Authorization") String authorization,
+                                                          @Header("Content-Type") String contentType,
+                                                          @Query("id") int id,
+                                                          @Body ChatRoomSend message);
+
+
 
 }

@@ -20,10 +20,11 @@ import android.content.Context;
 
 import com.orainteractive.orachat.base.BasePresenter;
 import com.orainteractive.orachat.model.ChatMessage;
-import com.orainteractive.orachat.model.Chats;
+import com.orainteractive.orachat.model.ChatRoomSend;
+import com.orainteractive.orachat.model.ChatRoomSendResponse;
 import com.orainteractive.orachat.model.SharedPrefences;
 import com.orainteractive.orachat.model.User;
-import com.orainteractive.orachat.model.mapper.ChatRoomResponse;
+import com.orainteractive.orachat.model.ChatRoomResponse;
 import com.orainteractive.orachat.model.mapper.CommonMapper;
 import com.orainteractive.orachat.services.RetrofitService;
 import com.orainteractive.orachat.view.chatroom.ChatRoomView;
@@ -41,7 +42,7 @@ import io.reactivex.disposables.Disposable;
  * Created by kamilabrito on 7/28/17.
  */
 
-public class ChatRoomPresenter extends BasePresenter<ChatRoomView> implements Observer<ChatRoomResponse> {
+public class ChatRoomPresenter extends BasePresenter<ChatRoomView> {
 
     @Inject
     RetrofitService mRetrofit;
@@ -64,28 +65,28 @@ public class ChatRoomPresenter extends BasePresenter<ChatRoomView> implements Ob
     public void loadChatRoomMessages(int chatId) {
         Observable<ChatRoomResponse> chatRoomResponseObservable =
                 mRetrofit.getChatRoomMessages(getToken(), getContentType(), chatId,  1, 50);
-        subscribe(chatRoomResponseObservable, this);
-    }
+        subscribe(chatRoomResponseObservable, new Observer<ChatRoomResponse>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
-    @Override
-    public void onSubscribe(@NonNull Disposable d) {
+            }
 
-    }
+            @Override
+            public void onNext(@NonNull ChatRoomResponse chatRoomResponse) {
+                List<ChatMessage> chatMessages = mMapper.mapChatRoom(chatRoomResponse);
+                getView().loadChatMessages(chatMessages);
+            }
 
-    @Override
-    public void onNext(@NonNull ChatRoomResponse chatRoomResponse) {
-        List<ChatMessage> chatMessages = mMapper.mapChatRoom(chatRoomResponse);
-        getView().loadChatMessages(chatMessages);
-    }
+            @Override
+            public void onError(@NonNull Throwable e) {
 
-    @Override
-    public void onError(@NonNull Throwable e) {
+            }
 
-    }
+            @Override
+            public void onComplete() {
 
-    @Override
-    public void onComplete() {
-
+            }
+        });
     }
 
     public String getToken() {
@@ -98,5 +99,35 @@ public class ChatRoomPresenter extends BasePresenter<ChatRoomView> implements Ob
 
     public User getLoggedUser() {
         return mPreferences.readUserFromStorage(mContext);
+    }
+
+    public void sendChatMessage(ChatRoomSend message, int chatId) {
+        if (!message.getMessage().isEmpty()) {
+            Observable<ChatRoomSendResponse> chatRoomSendResponseObservable =
+                    mRetrofit.sendChatRoomMessages(getToken(), getContentType(), chatId, message);
+            subscribe(chatRoomSendResponseObservable, new Observer<ChatRoomSendResponse>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(@NonNull ChatRoomSendResponse chatRoomSendResponse) {
+                    ChatMessage chatMessages = mMapper.mapChatRoomSend(chatRoomSendResponse);
+                    getView().loadChatMessages(chatMessages);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+        }
+
     }
 }

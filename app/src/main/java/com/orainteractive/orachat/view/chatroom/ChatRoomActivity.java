@@ -16,17 +16,22 @@
 
 package com.orainteractive.orachat.view.chatroom;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BaseActivity;
 import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
 import com.orainteractive.orachat.dagger.module.ChatModule;
 import com.orainteractive.orachat.model.ChatMessage;
-import com.orainteractive.orachat.model.User;
+import com.orainteractive.orachat.model.ChatRoomSend;
 import com.orainteractive.orachat.presenter.ChatRoomPresenter;
 import com.orainteractive.orachat.view.ChatRoomRecyclerViewAdapter;
 
@@ -40,13 +45,19 @@ import butterknife.BindView;
  * Created by kamilabrito on 7/28/17.
  */
 
-public class ChatRoomActivity extends BaseActivity implements ChatRoomView {
+public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View.OnClickListener {
 
     @Inject
     ChatRoomPresenter mPresenter;
 
     @BindView(R.id.rv_chat_room_messages)
     RecyclerView mRecyclerChatRoom;
+    @BindView(R.id.et_chat_room_message)
+    EditText etChatRoomMessage;
+    @BindView(R.id.ib_chat_room_send)
+    ImageButton ibChatRoomSend;
+
+    private int mChatId;
 
     ChatRoomRecyclerViewAdapter mChatRoomRecylerAdapter;
 
@@ -54,13 +65,18 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView {
     protected void onViewReady(Bundle savedInstanceState, Intent intent) {
         super.onViewReady(savedInstanceState, intent);
 
-        int chatId = getIntent().getIntExtra("CHAT_ID", -1);
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(etChatRoomMessage, 0);
 
-        if (chatId != -1) {
-            mPresenter.loadChatRoomMessages(chatId);
+        mChatId = getIntent().getIntExtra("CHAT_ID", -1);
+
+        if (mChatId != -1) {
+            mPresenter.loadChatRoomMessages(mChatId);
         }
 
         mChatRoomRecylerAdapter = new ChatRoomRecyclerViewAdapter();
+        ibChatRoomSend.setOnClickListener(this);
 
     }
 
@@ -85,5 +101,25 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView {
         mRecyclerChatRoom.setAdapter(mChatRoomRecylerAdapter);
         mChatRoomRecylerAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void loadChatMessages(ChatMessage chatMessages) {
+        mChatRoomRecylerAdapter.addChatRoomLocalMessage(chatMessages);
+        mChatRoomRecylerAdapter.setmLocalUser(mPresenter.getLoggedUser());
+        mRecyclerChatRoom.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerChatRoom.setAdapter(mChatRoomRecylerAdapter);
+        mRecyclerChatRoom.smoothScrollToPosition(mChatRoomRecylerAdapter.getItemCount()-1);
+        mChatRoomRecylerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.ib_chat_room_send:
+                mPresenter.sendChatMessage(new ChatRoomSend(etChatRoomMessage.getText().toString()), mChatId);
+                etChatRoomMessage.setText("");
+                break;
+        }
     }
 }

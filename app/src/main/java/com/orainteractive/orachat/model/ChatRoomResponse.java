@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.model.mapper;
+package com.orainteractive.orachat.model;
 
 import com.orainteractive.orachat.model.ChatMessage;
 import com.orainteractive.orachat.model.Chats;

@@ -16,9 +16,9 @@
 
 package com.orainteractive.orachat.model.mapper;
 
-import android.util.Log;
-
 import com.orainteractive.orachat.model.ChatMessage;
+import com.orainteractive.orachat.model.ChatRoomResponse;
+import com.orainteractive.orachat.model.ChatRoomSendResponse;
 import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.model.ChatsResponse;
 import com.orainteractive.orachat.model.User;
@@ -72,5 +72,19 @@ public class CommonMapper {
         }
 
         return chatsMessageList;
+    }
+
+    public ChatMessage mapChatRoomSend(ChatRoomSendResponse chatRoomSendResponse) {
+        ChatMessage chatMessage = new ChatMessage();
+
+        if (chatRoomSendResponse != null) {
+            chatMessage.setChat_id(chatRoomSendResponse.getData().getChat_id());
+            chatMessage.setCreated_at(chatRoomSendResponse.getData().getCreated_at());
+            chatMessage.setId(chatRoomSendResponse.getData().getId());
+            chatMessage.setMessage(chatRoomSendResponse.getData().getMessage());
+            chatMessage.setUser(chatRoomSendResponse.getData().getUser());
+            chatMessage.setUser_id(chatRoomSendResponse.getData().getUser_id());
+        }
+        return chatMessage;
     }
 }

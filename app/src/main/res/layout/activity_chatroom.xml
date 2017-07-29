@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,8 +7,45 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_chat_room_messages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="437dp"
         android:layout_margin="16dp">
     </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f3f3f3"
+        android:layout_gravity="bottom"
+        android:paddingBottom="10.0dip"
+        android:paddingTop="10.0dip"
+        android:id="@+id/bottom_bar"
+        android:layout_above="@+id/rv_chat_room_messages"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/et_chat_room_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10.0dip"
+            android:layout_toLeftOf="@+id/ib_chat_room_send"
+            android:hint="Enter Message"/>
+
+        <ImageButton
+            android:id="@+id/ib_chat_room_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/et_chat_room_message"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/et_chat_room_message"
+            android:layout_marginBottom="1px"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginTop="1px"
+            android:paddingBottom="5.0dip"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5.0dip"
+            android:src="@android:drawable/ic_menu_share" />
+    </RelativeLayout>
+
+</RelativeLayout>

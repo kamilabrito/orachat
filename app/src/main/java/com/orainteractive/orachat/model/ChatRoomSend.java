@@ -14,20 +14,26 @@
  * limitations under the License.
  */
 
-package com.orainteractive.orachat.view.chatroom;
-
-import com.orainteractive.orachat.base.BaseView;
-import com.orainteractive.orachat.model.ChatMessage;
-import com.orainteractive.orachat.model.ChatRoomSendResponse;
-
-import java.util.List;
+package com.orainteractive.orachat.model;
 
 /**
  * Created by kamilabrito on 7/28/17.
  */
 
-public interface ChatRoomView extends BaseView {
-    void loadChatMessages(List<ChatMessage> chatMessages);
+public class ChatRoomSend {
 
-    void loadChatMessages(ChatMessage chatMessages);
+    private String message;
+
+    public ChatRoomSend(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
 }
