@@ -30,6 +30,7 @@ public class Pagination {
 
     /**
      * Pagination object contructor
+     *
      * @param current_page
      * @param per_page
      * @param page_count
@@ -50,6 +51,7 @@ public class Pagination {
 
     /**
      * Get current page
+     *
      * @return
      */
     public int getCurrent_page() {
@@ -58,6 +60,7 @@ public class Pagination {
 
     /**
      * Set current page
+     *
      * @param current_page
      */
     public void setCurrent_page(int current_page) {
@@ -66,6 +69,7 @@ public class Pagination {
 
     /**
      * Get per page
+     *
      * @return
      */
     public int getPer_page() {
@@ -74,6 +78,7 @@ public class Pagination {
 
     /**
      * Set per page
+     *
      * @param per_page
      */
     public void setPer_page(int per_page) {
@@ -82,6 +87,7 @@ public class Pagination {
 
     /**
      * Get page count
+     *
      * @return
      */
     public int getPage_count() {
@@ -90,6 +96,7 @@ public class Pagination {
 
     /**
      * Set page count
+     *
      * @param page_count
      */
     public void setPage_count(int page_count) {
@@ -98,6 +105,7 @@ public class Pagination {
 
     /**
      * Get total count
+     *
      * @return
      */
     public int getTotal_count() {
@@ -106,6 +114,7 @@ public class Pagination {
 
     /**
      * Set page count
+     *
      * @param total_count
      */
     public void setTotal_count(int total_count) {

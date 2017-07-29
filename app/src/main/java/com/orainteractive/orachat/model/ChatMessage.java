@@ -36,6 +36,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Chat model constructor
+     *
      * @param id
      * @param chat_id
      * @param user_id
@@ -58,6 +59,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Get chat message id
+     *
      * @return
      */
     public int getId() {
@@ -66,6 +68,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Set chat message id
+     *
      * @param id
      */
     public void setId(int id) {
@@ -74,6 +77,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Get chat id
+     *
      * @return
      */
     public int getChat_id() {
@@ -82,6 +86,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Set chat id
+     *
      * @param chat_id
      */
     public void setChat_id(int chat_id) {
@@ -90,6 +95,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Get user chat id
+     *
      * @return
      */
     public int getUser_id() {
@@ -98,6 +104,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Set user chat id
+     *
      * @param user_id
      */
     public void setUser_id(int user_id) {
@@ -106,6 +113,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Get message
+     *
      * @return
      */
     public String getMessage() {
@@ -114,6 +122,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Set chat message
+     *
      * @param message
      */
     public void setMessage(String message) {
@@ -122,6 +131,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Get chat creation date
+     *
      * @return
      */
     public String getCreated_at() {
@@ -130,6 +140,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Set chat creation date
+     *
      * @param created_at
      */
     public void setCreated_at(String created_at) {
@@ -138,6 +149,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Get chat user information
+     *
      * @return
      */
     public User getUser() {
@@ -146,6 +158,7 @@ public class ChatMessage implements Serializable {
 
     /**
      * Set chat user information
+     *
      * @param user
      */
     public void setUser(User user) {

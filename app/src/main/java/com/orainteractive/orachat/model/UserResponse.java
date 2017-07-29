@@ -28,6 +28,7 @@ public class UserResponse {
 
     /**
      * Get response data
+     *
      * @return
      */
     public User getData() {
@@ -36,6 +37,7 @@ public class UserResponse {
 
     /**
      * Set response data
+     *
      * @param data
      */
     public void setData(User data) {
@@ -44,6 +46,7 @@ public class UserResponse {
 
     /**
      * Set response meta
+     *
      * @return
      */
     public Pagination getMeta() {
@@ -52,6 +55,7 @@ public class UserResponse {
 
     /**
      * Get response meta
+     *
      * @param meta
      */
     public void setMeta(Pagination meta) {

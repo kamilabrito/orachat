@@ -16,13 +16,11 @@
 
 package com.orainteractive.orachat.model;
 
-import com.orainteractive.orachat.model.ChatMessage;
-import com.orainteractive.orachat.model.Chats;
-import com.orainteractive.orachat.model.Pagination;
-
 import java.util.List;
 
 /**
+ * Models the server response after
+ * receiving list of chatrooms
  * Created by kamilabrito on 7/27/17.
  */
 
@@ -31,18 +29,38 @@ public class ChatRoomResponse {
     private List<ChatMessage> data;
     private Pagination meta;
 
+    /**
+     * Get chatrooms list
+     *
+     * @return
+     */
     public List<ChatMessage> getData() {
         return data;
     }
 
+    /**
+     * Sets chatroom list
+     *
+     * @param data
+     */
     public void setData(List<ChatMessage> data) {
         this.data = data;
     }
 
+    /**
+     * Get pagination information
+     *
+     * @return
+     */
     public Pagination getMeta() {
         return meta;
     }
 
+    /**
+     * Sets pagination information
+     *
+     * @param meta
+     */
     public void setMeta(Pagination meta) {
         this.meta = meta;
     }

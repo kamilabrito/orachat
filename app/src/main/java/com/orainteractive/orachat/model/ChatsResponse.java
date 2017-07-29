@@ -19,6 +19,7 @@ package com.orainteractive.orachat.model;
 import java.util.List;
 
 /**
+ * Model of chat response that is received from server
  * Created by kamilabrito on 7/27/17.
  */
 
@@ -27,18 +28,38 @@ public class ChatsResponse {
     private List<Chats> data;
     private Pagination meta;
 
+    /**
+     * Get data from chat response
+     *
+     * @return
+     */
     public List<Chats> getData() {
         return data;
     }
 
+    /**
+     * Set data as a list of chats
+     *
+     * @param data
+     */
     public void setData(List<Chats> data) {
         this.data = data;
     }
 
+    /**
+     * Get pagination information
+     *
+     * @return
+     */
     public Pagination getMeta() {
         return meta;
     }
 
+    /**
+     * Sets pagination information
+     *
+     * @param meta
+     */
     public void setMeta(Pagination meta) {
         this.meta = meta;
     }

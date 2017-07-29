@@ -24,17 +24,18 @@ import java.util.List;
  * Created by kamilabrito on 7/25/17.
  */
 
-public class Chats implements Serializable{
+public class Chats implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public int id;
-    public String name;
-    public List<User> users;
-    public ChatMessage last_chat_message;
+    private int id;
+    private String name;
+    private List<User> users;
+    private ChatMessage last_chat_message;
 
     /**
      * Chats constructor
+     *
      * @param id
      * @param name
      * @param users
@@ -52,6 +53,7 @@ public class Chats implements Serializable{
 
     /**
      * Get chats id
+     *
      * @return
      */
     public int getId() {
@@ -60,6 +62,7 @@ public class Chats implements Serializable{
 
     /**
      * Set chats id
+     *
      * @param id
      */
     public void setId(int id) {
@@ -68,6 +71,7 @@ public class Chats implements Serializable{
 
     /**
      * Get chats name
+     *
      * @return
      */
     public String getName() {
@@ -76,6 +80,7 @@ public class Chats implements Serializable{
 
     /**
      * Set chats name
+     *
      * @param name
      */
     public void setName(String name) {
@@ -84,6 +89,7 @@ public class Chats implements Serializable{
 
     /**
      * Get users in chat
+     *
      * @return
      */
     public List<User> getUsers() {
@@ -92,6 +98,7 @@ public class Chats implements Serializable{
 
     /**
      * Set users in chat
+     *
      * @param users
      */
     public void setUsers(List<User> users) {
@@ -100,6 +107,7 @@ public class Chats implements Serializable{
 
     /**
      * Get last chat message
+     *
      * @return
      */
     public ChatMessage getLast_chat_message() {
@@ -108,6 +116,7 @@ public class Chats implements Serializable{
 
     /**
      * Set last chat message
+     *
      * @param last_chat_message
      */
     public void setLast_chat_message(ChatMessage last_chat_message) {

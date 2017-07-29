@@ -17,6 +17,8 @@
 package com.orainteractive.orachat.model;
 
 /**
+ * Models the object of chat room
+ * that is send to the server
  * Created by kamilabrito on 7/28/17.
  */
 
@@ -24,14 +26,29 @@ public class ChatRoomSend {
 
     private String message;
 
+    /**
+     * Constructor of chatroom object
+     *
+     * @param message
+     */
     public ChatRoomSend(String message) {
         this.message = message;
     }
 
+    /**
+     * Sets the message to chatroom object
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Gets message from chatroom object
+     *
+     * @param message
+     */
     public void setMessage(String message) {
         this.message = message;
     }

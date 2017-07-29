@@ -16,9 +16,9 @@
 
 package com.orainteractive.orachat.model;
 
-import java.util.List;
-
 /**
+ * Models chat room response received from
+ * the server
  * Created by kamilabrito on 7/28/17.
  */
 
@@ -27,18 +27,38 @@ public class ChatRoomSendResponse {
     private ChatMessage data;
     private Pagination meta;
 
+    /**
+     * Get data in form of chat messages
+     *
+     * @return
+     */
     public ChatMessage getData() {
         return data;
     }
 
+    /**
+     * Set data in chat messages
+     *
+     * @param data
+     */
     public void setData(ChatMessage data) {
         this.data = data;
     }
 
+    /**
+     * Get pagination information
+     *
+     * @return
+     */
     public Pagination getMeta() {
         return meta;
     }
 
+    /**
+     * Sets pagination information
+     *
+     * @param meta
+     */
     public void setMeta(Pagination meta) {
         this.meta = meta;
     }

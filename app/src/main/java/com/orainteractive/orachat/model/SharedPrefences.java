@@ -24,6 +24,9 @@ import com.orainteractive.orachat.R;
 import javax.inject.Inject;
 
 /**
+ * Shared preferences is responsible for
+ * writing and reading user information
+ * from sharepreferences file
  * Created by kamilabrito on 7/26/17.
  */
 
@@ -35,6 +38,12 @@ public class SharedPrefences {
     public SharedPrefences() {
     }
 
+    /**
+     * Saves user information into sharedpreferences file
+     *
+     * @param context
+     * @param userInformation
+     */
     public void saveUserOnStorage(Context context, User userInformation) {
 
         SharedPreferences sharedPref = context.getSharedPreferences(USER_PREF_FILE, Context.MODE_PRIVATE);
@@ -48,6 +57,12 @@ public class SharedPrefences {
         editor.commit();
     }
 
+    /**
+     * Reades user information from sharedpreferences file
+     *
+     * @param context
+     * @return
+     */
     public User readUserFromStorage(Context context) {
         User user = new User();
 
@@ -60,8 +75,6 @@ public class SharedPrefences {
 
         return user;
     }
-
-
 
 
 }

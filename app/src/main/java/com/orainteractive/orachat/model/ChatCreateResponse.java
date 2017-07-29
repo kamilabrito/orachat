@@ -17,6 +17,8 @@
 package com.orainteractive.orachat.model;
 
 /**
+ * Models the response from the server
+ * after creating a new chat
  * Created by kamilabrito on 7/28/17.
  */
 
@@ -25,18 +27,38 @@ public class ChatCreateResponse {
     private Chats data;
     private Pagination meta;
 
+    /**
+     * Gets chat received as response after creating a new chat
+     *
+     * @return
+     */
     public Chats getData() {
         return data;
     }
 
+    /**
+     * Sets chat received as response after creating a new chat
+     *
+     * @param data
+     */
     public void setData(Chats data) {
         this.data = data;
     }
 
+    /**
+     * Get pagination information
+     *
+     * @return
+     */
     public Pagination getMeta() {
         return meta;
     }
 
+    /**
+     * Sets pagination information
+     *
+     * @param meta
+     */
     public void setMeta(Pagination meta) {
         this.meta = meta;
     }

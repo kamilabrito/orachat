@@ -25,24 +25,45 @@ public class ChatCreate {
     private String name;
     private String message;
 
+    /**
+     * Returns the name of the chate created
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the chat room created
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Returns the first message sent on chat creation
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Sets the first message sent on chat creation
+     *
+     * @param message
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
     /**
      * Constructor of the a new chat, add name of the chat and the first message
+     *
      * @param name
      * @param firstMessage
      */

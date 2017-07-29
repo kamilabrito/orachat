@@ -26,7 +26,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private int id;
     private String name;
     private String email;
@@ -37,6 +37,7 @@ public class User implements Serializable {
 
     /**
      * Get user autorization code
+     *
      * @return
      */
 
@@ -46,6 +47,7 @@ public class User implements Serializable {
 
     /**
      * Set user autorization code
+     *
      * @param authorization
      */
     public void setAuthorization(String authorization) {
@@ -54,6 +56,7 @@ public class User implements Serializable {
 
     /**
      * User object constructor
+     *
      * @param id
      * @param name
      * @param email
@@ -76,6 +79,7 @@ public class User implements Serializable {
 
     /**
      * Get user id
+     *
      * @return
      */
     public int getId() {
@@ -84,6 +88,7 @@ public class User implements Serializable {
 
     /**
      * Set user id
+     *
      * @param id
      */
     public void setId(int id) {
@@ -92,6 +97,7 @@ public class User implements Serializable {
 
     /**
      * Get user name
+     *
      * @return
      */
     public String getName() {
@@ -100,6 +106,7 @@ public class User implements Serializable {
 
     /**
      * Set user name
+     *
      * @param name
      */
     public void setName(String name) {
@@ -108,6 +115,7 @@ public class User implements Serializable {
 
     /**
      * Get user email
+     *
      * @return
      */
     public String getEmail() {
@@ -116,6 +124,7 @@ public class User implements Serializable {
 
     /**
      * Set user email
+     *
      * @param email
      */
     public void setEmail(String email) {
@@ -124,6 +133,7 @@ public class User implements Serializable {
 
     /**
      * Get user password
+     *
      * @return
      */
     public String getPassword() {
@@ -132,6 +142,7 @@ public class User implements Serializable {
 
     /**
      * Set user password
+     *
      * @param password
      */
     public void setPassword(String password) {
@@ -140,6 +151,7 @@ public class User implements Serializable {
 
     /**
      * Get user confirmation password
+     *
      * @return
      */
     public String getPasswordConfirmation() {
@@ -148,6 +160,7 @@ public class User implements Serializable {
 
     /**
      * Set user confirmation password
+     *
      * @param password_confirmation
      */
     public void setPasswordConfirmation(String password_confirmation) {

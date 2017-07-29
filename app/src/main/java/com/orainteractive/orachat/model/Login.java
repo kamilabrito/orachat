@@ -28,6 +28,7 @@ public class Login {
 
     /**
      * Login object constructor
+     *
      * @param email
      * @param password
      */
@@ -44,6 +45,7 @@ public class Login {
 
     /**
      * Get user email
+     *
      * @return
      */
     public String getEmail() {
@@ -52,6 +54,7 @@ public class Login {
 
     /**
      * Set user email
+     *
      * @param email
      */
     public void setEmail(String email) {
@@ -60,6 +63,7 @@ public class Login {
 
     /**
      * Get user password
+     *
      * @return
      */
     public String getPassword() {
@@ -68,6 +72,7 @@ public class Login {
 
     /**
      * Set user password
+     *
      * @param password
      */
     public void setPassword(String password) {
