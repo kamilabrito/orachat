@@ -41,6 +41,13 @@ public class ChatCreate {
         this.message = message;
     }
 
-    public ChatCreate(String s, String s1) {
+    /**
+     * Constructor of the a new chat, add name of the chat and the first message
+     * @param name
+     * @param firstMessage
+     */
+    public ChatCreate(String name, String firstMessage) {
+        this.name = name;
+        this.message = firstMessage;
     }
 }

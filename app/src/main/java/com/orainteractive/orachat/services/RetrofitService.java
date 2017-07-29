@@ -32,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -40,9 +41,6 @@ import retrofit2.http.Query;
  */
 
 public interface RetrofitService {
-
-    @POST("/auth/login")
-    Observable<UserResponse> loginWithExistingUser(@Body Login login);
 
     @POST("/auth/login")
     Call<UserResponse> loginWithUser(@Body Login login);
@@ -74,6 +72,11 @@ public interface RetrofitService {
                                                           @Header("Content-Type") String contentType,
                                                           @Body ChatCreate chat);
 
+    @PATCH("/chats")
+    Observable<ChatCreateResponse> updateChat(@Header("Authorization") String authorization,
+                                                 @Header("Content-Type") String contentType,
+                                                 @Query ("id") int id,
+                                                 @Body ChatCreate chat);
 
 
 }

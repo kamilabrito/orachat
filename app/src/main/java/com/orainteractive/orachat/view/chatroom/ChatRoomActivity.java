@@ -21,17 +21,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BaseActivity;
 import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
 import com.orainteractive.orachat.dagger.module.ChatModule;
+import com.orainteractive.orachat.model.ChatCreate;
 import com.orainteractive.orachat.model.ChatMessage;
 import com.orainteractive.orachat.model.ChatRoomSend;
+import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.presenter.ChatRoomPresenter;
 import com.orainteractive.orachat.view.ChatRoomRecyclerViewAdapter;
 
@@ -56,8 +64,16 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
     EditText etChatRoomMessage;
     @BindView(R.id.ib_chat_room_send)
     ImageButton ibChatRoomSend;
+    @BindView(R.id.ll_edit_chat)
+    LinearLayout llEditChat;
+    @BindView(R.id.et_edit_chat_name)
+    EditText etEditChatName;
+    @BindView(R.id.btn_edit_chat)
+    Button btnEditChat;
+    @BindView(R.id.bottom_bar)
+    RelativeLayout rlBottomBar;
 
-    private int mChatId;
+    private Chats mChat;
 
     ChatRoomRecyclerViewAdapter mChatRoomRecylerAdapter;
 
@@ -69,14 +85,20 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
                 Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(etChatRoomMessage, 0);
 
-        mChatId = getIntent().getIntExtra("CHAT_ID", -1);
+        try {
+            mChat = (Chats) getIntent().getSerializableExtra("CHAT_INFO");
+            if (mChat != null) {
+                mPresenter.loadChatRoomMessages(mChat.getId());
+                getSupportActionBar().setTitle(mChat.getName());
+            }
 
-        if (mChatId != -1) {
-            mPresenter.loadChatRoomMessages(mChatId);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         mChatRoomRecylerAdapter = new ChatRoomRecyclerViewAdapter();
         ibChatRoomSend.setOnClickListener(this);
+        btnEditChat.setOnClickListener(this);
 
     }
 
@@ -114,12 +136,58 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
     }
 
     @Override
+    public void editChatView() {
+        llEditChat.setVisibility(View.VISIBLE);
+        mRecyclerChatRoom.setVisibility(View.GONE);
+        rlBottomBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void updateChatName(String chatName) {
+        mChat.setName(chatName);
+        getSupportActionBar().setTitle(mChat.getName());
+    }
+
+    @Override
+    public void showErrorToast() {
+        Toast.makeText(getApplicationContext(), R.string.edit_chat_error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void hideEditChatView() {
+        llEditChat.setVisibility(View.GONE);
+        mRecyclerChatRoom.setVisibility(View.VISIBLE);
+        rlBottomBar.setVisibility(View.VISIBLE);
+        etEditChatName.setText("");
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ib_chat_room_send:
-                mPresenter.sendChatMessage(new ChatRoomSend(etChatRoomMessage.getText().toString()), mChatId);
+                mPresenter.sendChatMessage(new ChatRoomSend(etChatRoomMessage.getText().toString()), mChat.getId());
                 etChatRoomMessage.setText("");
                 break;
+            case R.id.btn_edit_chat:
+                mPresenter.editChat(mChat.getId(), new ChatCreate(etEditChatName.getText().toString(), ""));
+                mPresenter.hideEditMode();
+                break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chat_room_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit_chat:
+                mPresenter.openEditChatView();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

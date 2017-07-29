@@ -36,4 +36,6 @@
     <string name="chat_name">Chat room name</string>
     <string name="chat_first_message">First message</string>
     <string name="create_chat">Create chat</string>
+    <string name="edit_chat">Edit</string>
+    <string name="edit_chat_error">Error while editing chat</string>
 </resources>

@@ -30,4 +30,12 @@ public interface ChatRoomView extends BaseView {
     void loadChatMessages(List<ChatMessage> chatMessages);
 
     void loadChatMessages(ChatMessage chatMessages);
+
+    void editChatView();
+
+    void updateChatName(String name);
+
+    void showErrorToast();
+
+    void hideEditChatView();
 }

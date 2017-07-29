@@ -19,9 +19,12 @@ package com.orainteractive.orachat.presenter;
 import android.content.Context;
 
 import com.orainteractive.orachat.base.BasePresenter;
+import com.orainteractive.orachat.model.ChatCreate;
+import com.orainteractive.orachat.model.ChatCreateResponse;
 import com.orainteractive.orachat.model.ChatMessage;
 import com.orainteractive.orachat.model.ChatRoomSend;
 import com.orainteractive.orachat.model.ChatRoomSendResponse;
+import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.model.SharedPrefences;
 import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.ChatRoomResponse;
@@ -129,5 +132,44 @@ public class ChatRoomPresenter extends BasePresenter<ChatRoomView> {
             });
         }
 
+    }
+
+    public void editChat(int chatId, ChatCreate chatCreate) {
+
+        Observable<ChatCreateResponse> chatsEditResponseObservable = mRetrofit.updateChat(getToken(), getContentType(), chatId, chatCreate);
+        subscribe(chatsEditResponseObservable, new Observer<ChatCreateResponse>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull ChatCreateResponse chatCreateResponse) {
+                Chats chatMessage = mMapper.mapCreateChat(chatCreateResponse);
+                getView().updateChatName(chatMessage.getName());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                getView().showErrorToast();
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+
+
+    }
+
+    public void openEditChatView() {
+        getView().editChatView();
+    }
+
+    public void hideEditMode() {
+        getView().hideEditChatView();
     }
 }
