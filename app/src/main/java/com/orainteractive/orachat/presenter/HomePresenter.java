@@ -62,7 +62,12 @@ public class HomePresenter extends BasePresenter<HomeView> implements Observer<C
     }
 
     public void openNewChatScreen() {
-        getView().showNewChatView();
+        if (getView().createNewChatIsVisible()) {
+            getView().hideCreateNewChatView();
+        } else {
+            getView().showNewChatView();
+        }
+
     }
 
     /**

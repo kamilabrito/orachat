@@ -32,21 +32,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:hint="@string/email"/>
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/et_account_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:hint="@string/password"/>
+        android:hint="@string/password"
+        android:inputType="textPassword"/>
 
     <EditText
         android:id="@+id/et_account_password_confirmation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:hint="@string/confirm_password"/>
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/btn_account_edit"

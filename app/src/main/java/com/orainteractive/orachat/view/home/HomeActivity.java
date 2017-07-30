@@ -160,6 +160,19 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
                 getString(R.string.request_error), Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public boolean createNewChatIsVisible() {
+        if (mLLCreateChat.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void hideCreateNewChatView() {
+        mLLCreateChat.setVisibility(View.GONE);
+    }
+
     /**
      * Show view to create new chat
      */

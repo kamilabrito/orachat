@@ -13,10 +13,9 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bn_home"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/bn_home_height"
         android:layout_gravity="bottom"
         android:background="@color/colorAccent"
-
         app:menu="@menu/my_navigation_items" />
 
     <android.support.design.widget.FloatingActionButton
@@ -24,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_marginBottom="66dp"
-        android:layout_marginRight="26dp"
+        android:layout_marginBottom="@dimen/fab_home_margin_bottom"
+        android:layout_marginRight="@dimen/fab_home_margin_right"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_share" />
 

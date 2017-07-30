@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.orainteractive.orachat.R;
@@ -95,9 +96,9 @@ public class ChatRoomRecyclerViewAdapter extends RecyclerView.Adapter<ChatRoomRe
 
 
         @BindView(R.id.ll_chat_room_other_user)
-        LinearLayout llOtherUser;
+        RelativeLayout llOtherUser;
         @BindView(R.id.ll_chat_room_local_user)
-        LinearLayout llLocalUser;
+        RelativeLayout llLocalUser;
         @BindView(R.id.tv_chat_room_message)
         TextView tvOtherMessage;
         @BindView(R.id.tv_chat_room_user_time)

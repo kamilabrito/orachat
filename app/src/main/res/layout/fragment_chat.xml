@@ -24,7 +24,7 @@
         android:id="@+id/rv_chats_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_margin="@dimen/rv_chats_margin">
     </android.support.v7.widget.RecyclerView>
 
     <ProgressBar

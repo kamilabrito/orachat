@@ -32,4 +32,8 @@ public interface HomeView extends BaseView {
     void showEmptyFieldError();
 
     void showError();
+
+    boolean createNewChatIsVisible();
+
+    void hideCreateNewChatView();
 }
