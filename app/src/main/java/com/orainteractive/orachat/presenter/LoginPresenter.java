@@ -74,11 +74,11 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      */
     public void loginWithExistingUser(String email, String password) {
 
-        Login login = new Login(email, password);
-
-        if (login.getEmail().isEmpty() || login.getPassword().isEmpty()) {
+        if (email.isEmpty() || email.isEmpty()) {
             getView().showEmptyFieldError();
         } else {
+            Login login = new Login(email, password);
+
             Call<UserResponse> responseCall = mRetrofit.loginWithUser(login);
 
             responseCall.enqueue(new Callback<UserResponse>() {
@@ -95,7 +95,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
                 @Override
                 public void onFailure(Call<UserResponse> call, Throwable t) {
-
+                    getView().showError();
+                    t.printStackTrace();
                 }
             });
         }
@@ -113,15 +114,15 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      * @param passwordConfimation
      */
     public void registerNewUser(String name, String email, String password, String passwordConfimation) {
-        User newUser = new User();
-        newUser.setName(name);
-        newUser.setEmail(email);
-        newUser.setPassword(password);
-        newUser.setPasswordConfirmation(passwordConfimation);
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfimation.isEmpty()) {
             getView().showEmptyFieldError();
         } else {
+            User newUser = new User();
+            newUser.setName(name);
+            newUser.setEmail(email);
+            newUser.setPassword(password);
+            newUser.setPasswordConfirmation(passwordConfimation);
 
             Call<UserResponse> newUserCall = mRetrofit.createNewUser(newUser);
             newUserCall.enqueue(new Callback<UserResponse>() {
@@ -137,7 +138,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
                 @Override
                 public void onFailure(Call<UserResponse> call, Throwable t) {
-
+                    getView().showError();
+                    t.printStackTrace();
                 }
             });
         }

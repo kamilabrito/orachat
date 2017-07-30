@@ -25,9 +25,11 @@ import java.util.List;
  * Created by kamilabrito on 7/28/17.
  */
 
-public interface ChatsView extends BaseView{
+public interface ChatsView extends BaseView {
 
     void loadChatsOnView(List<Chats> chats);
 
     void showNewChatOnList(Chats newChat);
+
+    void showError();
 }

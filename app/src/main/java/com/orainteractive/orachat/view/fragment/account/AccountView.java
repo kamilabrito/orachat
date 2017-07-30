@@ -23,7 +23,10 @@ import com.orainteractive.orachat.base.BaseView;
  */
 
 public interface AccountView extends BaseView {
-    void showErrorToast();
+
+    void showEmptyFieldError();
+
+    void showError();
 
     void confirmUpdate();
 }

@@ -19,8 +19,6 @@ package com.orainteractive.orachat.view.home;
 import com.orainteractive.orachat.base.BaseView;
 import com.orainteractive.orachat.model.Chats;
 
-import java.util.List;
-
 /**
  * Created by kamilabrito on 7/26/17.
  */
@@ -30,4 +28,8 @@ public interface HomeView extends BaseView {
     void showNewChatView();
 
     void updateChatList(Chats chatMessages);
+
+    void showEmptyFieldError();
+
+    void showError();
 }

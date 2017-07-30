@@ -82,7 +82,7 @@ public class ChatPresenter extends BasePresenter<ChatsView> implements Observer<
 
     @Override
     public void onError(@NonNull Throwable e) {
-        Log.e("home", " ERROR requestChatsList" + e.getMessage());
+        getView().showError();
     }
 
     @Override

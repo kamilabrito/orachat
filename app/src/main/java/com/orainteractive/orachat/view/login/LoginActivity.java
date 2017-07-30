@@ -18,18 +18,17 @@ package com.orainteractive.orachat.view.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BaseActivity;
 import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
 import com.orainteractive.orachat.dagger.module.ChatModule;
-import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.presenter.LoginPresenter;
 import com.orainteractive.orachat.view.home.HomeActivity;
 
@@ -38,6 +37,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
+ * Login screen activity
  * Created by kamilabrito on 7/25/17.
  */
 
@@ -65,6 +65,8 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     EditText editTextRegisterConfirmPassword;
     @BindView(R.id.btn_register_register)
     Button buttonRegisterRegister;
+    @BindView(R.id.pb_login)
+    ProgressBar pbLogin;
 
 
     @Inject
@@ -77,8 +79,73 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         buttonLoginRegister.setOnClickListener(this);
         buttonRegisterRegister.setOnClickListener(this);
         buttonLoginEnter.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_login_register:
+                mPresenter.openRegisterView();
+                break;
+            case R.id.btn_login_enter:
+                pbLogin.setVisibility(View.VISIBLE);
+                mPresenter.loginWithExistingUser(
+                        editTextLoginEmail.getText().toString(),
+                        editTextLoginPassword.getText().toString());
+                break;
+            case R.id.btn_register_register:
+                pbLogin.setVisibility(View.VISIBLE);
+                mPresenter.registerNewUser(editTextRegisterName.getText().toString(),
+                        editTextRegisterEmail.getText().toString(),
+                        editTextRegisterPassword.getText().toString(),
+                        editTextRegisterConfirmPassword.getText().toString());
+                break;
+        }
+    }
 
+    /**
+     * Hide registration layout
+     */
+    @Override
+    public void hideLoginView() {
+        linearLayoutLogin.setVisibility(View.GONE);
+    }
+
+    /**
+     * Show registration layout
+     */
+    @Override
+    public void showRegisterView() {
+        linearLayoutRegister.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Shows toast with empty fields message
+     */
+    @Override
+    public void showEmptyFieldError() {
+        pbLogin.setVisibility(View.GONE);
+        Toast.makeText(this, getApplicationContext().getResources().
+                getString(R.string.empty_field), Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Opens home screen activity
+     */
+    @Override
+    public void openHomeScreen() {
+        pbLogin.setVisibility(View.GONE);
+        startActivity(new Intent(this, HomeActivity.class));
+    }
+
+    /**
+     * Shows toast with error message
+     */
+    @Override
+    public void showError() {
+        pbLogin.setVisibility(View.GONE);
+        Toast.makeText(this, getApplicationContext().getResources().
+                getString(R.string.request_error), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -92,48 +159,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 .applicationComponent(getApplicationComponent())
                 .chatModule(new ChatModule(this))
                 .build().inject(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_login_register:
-                mPresenter.openRegisterView();
-                break;
-            case R.id.btn_login_enter:
-                Log.e("onClick","R.id.btn_login_enter");
-                mPresenter.loginWithExistingUser(
-                        editTextLoginEmail.getText().toString(),
-                        editTextLoginPassword.getText().toString());
-                break;
-            case R.id.btn_register_register:
-                mPresenter.registerNewUser(editTextRegisterName.getText().toString(),
-                        editTextRegisterEmail.getText().toString(),
-                        editTextRegisterPassword.getText().toString(),
-                        editTextRegisterConfirmPassword.getText().toString());
-                break;
-        }
-    }
-
-    @Override
-    public void hideLoginView() {
-        linearLayoutLogin.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showRegisterView() {
-        linearLayoutRegister.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showEmptyFieldError() {
-        Toast.makeText(this, getApplicationContext().getResources().
-                getString(R.string.empty_field), Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void openHomeScreen() {
-        startActivity(new Intent(this, HomeActivity.class));
     }
 
 }

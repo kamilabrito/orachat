@@ -82,7 +82,8 @@ public class ChatRoomPresenter extends BasePresenter<ChatRoomView> {
 
             @Override
             public void onError(@NonNull Throwable e) {
-
+                getView().showErrorToast();
+                e.printStackTrace();
             }
 
             @Override
@@ -122,7 +123,8 @@ public class ChatRoomPresenter extends BasePresenter<ChatRoomView> {
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-
+                    getView().showErrorToast();
+                    e.printStackTrace();
                 }
 
                 @Override
@@ -134,34 +136,39 @@ public class ChatRoomPresenter extends BasePresenter<ChatRoomView> {
 
     }
 
-    public void editChat(int chatId, ChatCreate chatCreate) {
+    public void editChat(int chatId, String name) {
 
-        Observable<ChatCreateResponse> chatsEditResponseObservable = mRetrofit.updateChat(getToken(), getContentType(), chatId, chatCreate);
-        subscribe(chatsEditResponseObservable, new Observer<ChatCreateResponse>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
+        if (name.isEmpty()) {
+            getView().showEmptyFieldError();
+        } else {
+            ChatCreate chatCreate = new ChatCreate(name, "");
 
-            }
+            Observable<ChatCreateResponse> chatsEditResponseObservable = mRetrofit.updateChat(getToken(), getContentType(), chatId, chatCreate);
+            subscribe(chatsEditResponseObservable, new Observer<ChatCreateResponse>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
 
-            @Override
-            public void onNext(@NonNull ChatCreateResponse chatCreateResponse) {
-                Chats chatMessage = mMapper.mapCreateChat(chatCreateResponse);
-                getView().updateChatName(chatMessage.getName());
-            }
+                }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-                getView().showErrorToast();
+                @Override
+                public void onNext(@NonNull ChatCreateResponse chatCreateResponse) {
+                    Chats chatMessage = mMapper.mapCreateChat(chatCreateResponse);
+                    getView().updateChatName(chatMessage.getName());
+                }
 
-            }
+                @Override
+                public void onError(@NonNull Throwable e) {
+                    getView().showErrorToast();
+                    e.printStackTrace();
 
-            @Override
-            public void onComplete() {
+                }
 
-            }
-        });
+                @Override
+                public void onComplete() {
 
-
+                }
+            });
+        }
 
     }
 

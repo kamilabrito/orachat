@@ -28,12 +28,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BaseActivity;
 import com.orainteractive.orachat.dagger.components.DaggerChatComponent;
 import com.orainteractive.orachat.dagger.module.ChatModule;
-import com.orainteractive.orachat.model.ChatCreate;
 import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.presenter.HomePresenter;
 import com.orainteractive.orachat.view.fragment.account.AccountFragment;
@@ -44,10 +45,13 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
+ * Home screen activity
  * Created by kamilabrito on 7/27/17.
  */
 
 public class HomeActivity extends BaseActivity implements HomeView, View.OnClickListener {
+
+    private final static String NEW_CHAT = "NEW_CHAT";
 
     @BindView(R.id.bn_home)
     BottomNavigationView mBnHome;
@@ -61,6 +65,8 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     EditText mEtFirstMessage;
     @BindView(R.id.btn_home_create_chat)
     Button mBtnCreateChat;
+    @BindView(R.id.pb_new_chat)
+    ProgressBar mPbNewChat;
 
     @Inject
     HomePresenter mPresenter;
@@ -83,12 +89,23 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
 
     }
 
+    /**
+     * Changes fragment
+     *
+     * @param fragment
+     */
     private void changeFragment(Fragment fragment) {
         FragmentTransaction cf = getSupportFragmentManager().beginTransaction();
         cf.replace(R.id.fragmentContainer, fragment);
         cf.commit();
     }
 
+    /**
+     * Changes fragment and sends data
+     *
+     * @param fragment
+     * @param information
+     */
     private void changeFragment(Fragment fragment, Bundle information) {
         FragmentTransaction cf = getSupportFragmentManager().beginTransaction();
         fragment.setArguments(information);
@@ -108,10 +125,6 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         }
     }
 
-    @Override
-    protected int getContentView() {
-        return R.layout.activity_home;
-    }
 
     @Override
     public void onClick(View view) {
@@ -120,10 +133,58 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
                 mPresenter.openNewChatScreen();
                 break;
             case R.id.btn_home_create_chat:
-                mPresenter.createNewChat(new ChatCreate(mEtChatName.getText().toString(),
-                        mEtFirstMessage.getText().toString()));
+                mPbNewChat.setVisibility(View.VISIBLE);
+                mPresenter.createNewChat(mEtChatName.getText().toString(),
+                        mEtFirstMessage.getText().toString());
                 break;
         }
+    }
+
+    /**
+     * Shows toast with empty fields message
+     */
+    @Override
+    public void showEmptyFieldError() {
+        mPbNewChat.setVisibility(View.GONE);
+        Toast.makeText(this, getApplicationContext().getResources().
+                getString(R.string.empty_field), Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Shows toast with error message
+     */
+    @Override
+    public void showError() {
+        mPbNewChat.setVisibility(View.GONE);
+        Toast.makeText(this, getApplicationContext().getResources().
+                getString(R.string.request_error), Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Show view to create new chat
+     */
+    @Override
+    public void showNewChatView() {
+        mLLCreateChat.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Updates chats list with the new chat that was created
+     *
+     * @param chatMessages
+     */
+    @Override
+    public void updateChatList(Chats chatMessages) {
+        mPbNewChat.setVisibility(View.GONE);
+        mLLCreateChat.setVisibility(View.GONE);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(NEW_CHAT, chatMessages);
+        changeFragment(new ChatsFragment(), bundle);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_home;
     }
 
     @Override
@@ -134,16 +195,4 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
                 .build().inject(this);
     }
 
-    @Override
-    public void showNewChatView() {
-        mLLCreateChat.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void updateChatList(Chats chatMessages) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("NEW_CHAT", chatMessages);
-        changeFragment(new ChatsFragment(), bundle);
-        mLLCreateChat.setVisibility(View.GONE);
-    }
 }

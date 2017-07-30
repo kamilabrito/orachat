@@ -17,7 +17,6 @@
 package com.orainteractive.orachat.view.login;
 
 import com.orainteractive.orachat.base.BaseView;
-import com.orainteractive.orachat.model.User;
 
 /**
  * Created by kamilabrito on 7/26/17.
@@ -32,4 +31,6 @@ public interface LoginView extends BaseView {
     void showEmptyFieldError();
 
     void openHomeScreen();
+
+    void showError();
 }

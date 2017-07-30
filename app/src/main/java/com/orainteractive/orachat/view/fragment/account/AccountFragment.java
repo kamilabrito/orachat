@@ -21,6 +21,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.orainteractive.orachat.R;
@@ -54,6 +55,8 @@ public class AccountFragment extends BaseFragment implements AccountView, View.O
     EditText etPassworConfirmation;
     @BindView(R.id.btn_account_edit)
     Button btnAccountSave;
+    @BindView(R.id.pb_account)
+    ProgressBar pbAccount;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -79,6 +82,7 @@ public class AccountFragment extends BaseFragment implements AccountView, View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_account_edit:
+                pbAccount.setVisibility(View.VISIBLE);
                 mPresenter.updateAccountInformation(etAccountName.getText().toString(),
                         etAccountEmail.getText().toString(),
                         etPassword.getText().toString(),
@@ -88,13 +92,32 @@ public class AccountFragment extends BaseFragment implements AccountView, View.O
 
     }
 
+    /**
+     * Shows toast with empty fields message
+     */
     @Override
-    public void showErrorToast() {
-        Toast.makeText(getActivity(), R.string.empty_field, Toast.LENGTH_SHORT).show();
+    public void showEmptyFieldError() {
+        pbAccount.setVisibility(View.GONE);
+        Toast.makeText(getContext(), getActivity().getResources().
+                getString(R.string.empty_field), Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Shows toast with error message
+     */
+    @Override
+    public void showError() {
+        pbAccount.setVisibility(View.GONE);
+        Toast.makeText(getContext(), getActivity().getResources().
+                getString(R.string.request_error), Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Show toast to confirm information was updated
+     */
     @Override
     public void confirmUpdate() {
+        pbAccount.setVisibility(View.GONE);
         Toast.makeText(getActivity(), R.string.user_information_updated, Toast.LENGTH_SHORT).show();
     }
 }

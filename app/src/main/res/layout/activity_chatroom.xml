@@ -71,4 +71,13 @@
             android:src="@android:drawable/ic_menu_share" />
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/pb_chatroom"
+        style="?android:attr/progressBarStyleLarge"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
 </RelativeLayout>

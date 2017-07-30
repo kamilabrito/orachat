@@ -83,10 +83,12 @@ public class ChatRoomRecyclerViewAdapter extends RecyclerView.Adapter<ChatRoomRe
 
     public void addChatRoomMessages(List<ChatMessage> chats) {
         mChatRoomMessages.addAll(chats);
+        notifyDataSetChanged();
     }
 
     public void addChatRoomLocalMessage(ChatMessage chatMessages) {
         mChatRoomMessages.add(chatMessages);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

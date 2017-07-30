@@ -42,6 +42,8 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     @Inject
     SharedPrefences mPreferences;
 
+    private final static int SPLASH_TIME = 1000;
+
     @Inject
     public SplashPresenter() {
 
@@ -63,7 +65,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
                         }
 
                     }
-                }, 1000);
+                }, SPLASH_TIME);
     }
 
     /**

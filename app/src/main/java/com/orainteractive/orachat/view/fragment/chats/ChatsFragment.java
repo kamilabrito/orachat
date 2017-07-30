@@ -22,6 +22,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BaseFragment;
@@ -40,16 +42,22 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
+ * Chats list fragment
  * Created by kamilabrito on 7/27/17.
  */
 
 public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClickListener {
+
+    private static final String NEW_CHAT = "NEW_CHAT";
+    private static final String CHAT_INFO = "CHAT_INFO";
 
     @Inject
     ChatPresenter mPresenter;
 
     @BindView(R.id.rv_chats_list)
     RecyclerView rvChatsList;
+    @BindView(R.id.pb_chats)
+    ProgressBar pbChats;
 
     private ChatsRecyclerViewAdapter chatsRecyclerViewAdapter;
 
@@ -60,16 +68,19 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
 
         chatsRecyclerViewAdapter = new ChatsRecyclerViewAdapter();
         chatsRecyclerViewAdapter.setOnItemClickListener(this);
+        rvChatsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvChatsList.setAdapter(chatsRecyclerViewAdapter);
 
-        try{
-            Chats newChat = (Chats) getArguments().getSerializable("NEW_CHAT");
+        try {
+            Chats newChat = (Chats) getArguments().getSerializable(NEW_CHAT);
             if (newChat != null) {
+                pbChats.setVisibility(View.VISIBLE);
                 mPresenter.addNewChatToList(newChat);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
+        pbChats.setVisibility(View.VISIBLE);
         mPresenter.requestChatsList();
 
     }
@@ -83,26 +94,22 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
     public void onItemClick(Chats item) {
         Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("CHAT_INFO", item);
+        bundle.putSerializable(CHAT_INFO, item);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
     @Override
     public void loadChatsOnView(List<Chats> chats) {
+        pbChats.setVisibility(View.GONE);
         chatsRecyclerViewAdapter.addChats(chats);
-        rvChatsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvChatsList.setAdapter(chatsRecyclerViewAdapter);
-        chatsRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showNewChatOnList(Chats newChat) {
+        pbChats.setVisibility(View.GONE);
         chatsRecyclerViewAdapter.addNewChat(newChat);
-        rvChatsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvChatsList.setAdapter(chatsRecyclerViewAdapter);
-        rvChatsList.smoothScrollToPosition(chatsRecyclerViewAdapter.getItemCount()-1);
-        chatsRecyclerViewAdapter.notifyDataSetChanged();
+        rvChatsList.smoothScrollToPosition(chatsRecyclerViewAdapter.getItemCount() - 1);
     }
 
     @Override
@@ -111,5 +118,15 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
                 .applicationComponent(getApplicationComponent())
                 .chatModule(new ChatModule(this))
                 .build().inject(this);
+    }
+
+    /**
+     * Shows toast with error message
+     */
+    @Override
+    public void showError() {
+        pbChats.setVisibility(View.GONE);
+        Toast.makeText(getContext(), getActivity().getResources().
+                getString(R.string.request_error), Toast.LENGTH_LONG).show();
     }
 }

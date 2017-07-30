@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -72,6 +73,8 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
     Button btnEditChat;
     @BindView(R.id.bottom_bar)
     RelativeLayout rlBottomBar;
+    @BindView(R.id.pb_chatroom)
+    ProgressBar pbChatRoom;
 
     private Chats mChat;
 
@@ -88,6 +91,7 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
         try {
             mChat = (Chats) getIntent().getSerializableExtra("CHAT_INFO");
             if (mChat != null) {
+                pbChatRoom.setVisibility(View.VISIBLE);
                 mPresenter.loadChatRoomMessages(mChat.getId());
                 getSupportActionBar().setTitle(mChat.getName());
             }
@@ -98,6 +102,9 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
 
         mChatRoomRecylerAdapter = new ChatRoomRecyclerViewAdapter();
         ibChatRoomSend.setOnClickListener(this);
+        mChatRoomRecylerAdapter.setmLocalUser(mPresenter.getLoggedUser());
+        mRecyclerChatRoom.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerChatRoom.setAdapter(mChatRoomRecylerAdapter);
         btnEditChat.setOnClickListener(this);
 
     }
@@ -117,22 +124,15 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
 
     @Override
     public void loadChatMessages(List<ChatMessage> chatMessages) {
+        pbChatRoom.setVisibility(View.GONE);
         mChatRoomRecylerAdapter.addChatRoomMessages(chatMessages);
-        mChatRoomRecylerAdapter.setmLocalUser(mPresenter.getLoggedUser());
-        mRecyclerChatRoom.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerChatRoom.setAdapter(mChatRoomRecylerAdapter);
-        mChatRoomRecylerAdapter.notifyDataSetChanged();
-
     }
 
     @Override
     public void loadChatMessages(ChatMessage chatMessages) {
+        pbChatRoom.setVisibility(View.GONE);
         mChatRoomRecylerAdapter.addChatRoomLocalMessage(chatMessages);
-        mChatRoomRecylerAdapter.setmLocalUser(mPresenter.getLoggedUser());
-        mRecyclerChatRoom.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerChatRoom.setAdapter(mChatRoomRecylerAdapter);
         mRecyclerChatRoom.smoothScrollToPosition(mChatRoomRecylerAdapter.getItemCount()-1);
-        mChatRoomRecylerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -144,13 +144,15 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
 
     @Override
     public void updateChatName(String chatName) {
+        pbChatRoom.setVisibility(View.GONE);
         mChat.setName(chatName);
         getSupportActionBar().setTitle(mChat.getName());
     }
 
     @Override
     public void showErrorToast() {
-        Toast.makeText(getApplicationContext(), R.string.edit_chat_error, Toast.LENGTH_SHORT).show();
+        pbChatRoom.setVisibility(View.GONE);
+        Toast.makeText(getApplicationContext(), R.string.request_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -169,7 +171,8 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
                 etChatRoomMessage.setText("");
                 break;
             case R.id.btn_edit_chat:
-                mPresenter.editChat(mChat.getId(), new ChatCreate(etEditChatName.getText().toString(), ""));
+                pbChatRoom.setVisibility(View.VISIBLE);
+                mPresenter.editChat(mChat.getId(), etEditChatName.getText().toString());
                 mPresenter.hideEditMode();
                 break;
         }
@@ -189,5 +192,15 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Shows toast with empty fields message
+     */
+    @Override
+    public void showEmptyFieldError() {
+        pbChatRoom.setVisibility(View.GONE);
+        Toast.makeText(this, getApplicationContext().getResources().
+                getString(R.string.empty_field), Toast.LENGTH_LONG).show();
     }
 }

@@ -76,11 +76,13 @@ public class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecycler
 
     public void addChats(List<Chats> chats) {
         mChatsList.addAll(chats);
+        notifyDataSetChanged();
     }
 
     public void addNewChat(Chats newChat) {
         if (newChat != null) {
             mChatsList.add(newChat);
+            notifyDataSetChanged();
         }
     }
 

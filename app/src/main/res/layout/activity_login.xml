@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/et_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btn_login_enter"
@@ -59,14 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/et_register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/et_register_confirm_password"
@@ -82,5 +82,13 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/pb_login"
+        style="?android:attr/progressBarStyleLarge"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </LinearLayout>

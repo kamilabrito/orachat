@@ -61,7 +61,7 @@ public class AccountPresenter extends BasePresenter<AccountView> implements Obse
     public void updateAccountInformation(String name, String email, String password, String passwordConfirmation) {
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirmation.isEmpty()) {
-            getView().showErrorToast();
+            getView().showEmptyFieldError();
         } else {
             User updateUser = new User();
             updateUser.setName(name);

@@ -38,4 +38,6 @@ public interface ChatRoomView extends BaseView {
     void showErrorToast();
 
     void hideEditChatView();
+
+    void showEmptyFieldError();
 }
