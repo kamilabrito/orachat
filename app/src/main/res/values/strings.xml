@@ -43,4 +43,5 @@
     <string name="days_ago">days ago</string>
     <string name="weeks_ago">weeks ago</string>
     <string name="network_error">Network error. Verify your network connection</string>
+    <string name="password_not_mathing">Password and password confirmation are not mathing</string>
 </resources>

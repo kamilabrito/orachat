@@ -70,4 +70,10 @@ public class LoginPresenterTest {
         verify(mView, atLeastOnce()).showError(R.string.empty_field);
     }
 
+    @Test
+    public void registerUserUnmatchingPassword() throws Exception {
+        presenter.registerNewUser("Alex", "alex@gmail.com", "secret", "s");
+        verify(mView, atLeastOnce()).showError(R.string.password_not_mathing);
+    }
+
 }

@@ -121,7 +121,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      */
     public void registerNewUser(String name, String email, String password, String passwordConfimation) {
 
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfimation.isEmpty()) {
+        if (!password.equals(passwordConfimation)) {
+            getView().showError(R.string.password_not_mathing);
+        } else if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfimation.isEmpty()) {
             getView().showError(R.string.empty_field);
         } else {
             if (Utils.isNetAvailable(mContext)) {
