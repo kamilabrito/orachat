@@ -76,7 +76,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      */
     public void loginWithExistingUser(String email, String password) {
 
-        if (email.isEmpty() || email.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
             getView().showError(R.string.empty_field);
         } else {
             if (Utils.isNetAvailable(mContext)) {
