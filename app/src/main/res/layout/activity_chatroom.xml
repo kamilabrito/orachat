@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_edit_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/et_edit_chat_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/chat_name" />
+
+        <Button
+            android:id="@+id/btn_edit_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_chat"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_chat_room_messages"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rv_chatroom_height"
+        android:layout_margin="@dimen/rv_chatroom_margin">
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:paddingBottom="@dimen/rl_chatroom_paddin_bottom_top"
+        android:paddingTop="@dimen/rl_chatroom_paddin_bottom_top"
+        android:id="@+id/bottom_bar"
+        android:background="@android:color/darker_gray"
+        android:layout_above="@+id/rv_chat_room_messages"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/et_chat_room_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/et_chatroom_margin_left"
+            android:layout_toLeftOf="@+id/ib_chat_room_send"
+            android:hint="Enter Message"/>
+
+        <ImageButton
+            android:id="@+id/ib_chat_room_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/et_chat_room_message"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/et_chat_room_message"
+            android:layout_marginBottom="@dimen/et_chatroom_margin_bottom"
+            android:layout_marginRight="@dimen/et_chatroom_margin_right"
+            android:layout_marginTop="@dimen/et_chatroom_margin_top"
+            android:paddingBottom="@dimen/et_chatroom_padding_bottom"
+            android:paddingLeft="@dimen/et_chatroom_padding_left"
+            android:paddingRight="@dimen/et_chatroom_padding_right"
+            android:paddingTop="@dimen/et_chatroom_padding_top"
+            android:src="@android:drawable/ic_menu_share" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_chatroom"
+        style="?android:attr/progressBarStyleLarge"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
