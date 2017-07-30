@@ -17,6 +17,7 @@
 package com.orainteractive.orachat.presenter;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BasePresenter;
@@ -26,6 +27,7 @@ import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
 import com.orainteractive.orachat.model.mapper.CommonMapper;
 import com.orainteractive.orachat.services.RetrofitService;
+import com.orainteractive.orachat.util.Utils;
 import com.orainteractive.orachat.view.login.LoginView;
 
 import javax.inject.Inject;
@@ -51,7 +53,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     @Inject
     SharedPrefences mPreferences;
     @Inject
-    Context context;
+    Context mContext;
 
     @Inject
     public LoginPresenter() {
@@ -75,30 +77,34 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     public void loginWithExistingUser(String email, String password) {
 
         if (email.isEmpty() || email.isEmpty()) {
-            getView().showEmptyFieldError();
+            getView().showError(R.string.empty_field);
         } else {
-            Login login = new Login(email, password);
+            if (Utils.isNetAvailable(mContext)) {
+                Login login = new Login(email, password);
 
-            Call<UserResponse> responseCall = mRetrofit.loginWithUser(login);
+                Call<UserResponse> responseCall = mRetrofit.loginWithUser(login);
 
-            responseCall.enqueue(new Callback<UserResponse>() {
-                @Override
-                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                responseCall.enqueue(new Callback<UserResponse>() {
+                    @Override
+                    public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
 
-                    Headers headers = response.headers();
+                        Headers headers = response.headers();
 
-                    User user = mCommonMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString(),
-                            headers.get(context.getResources().getString(R.string.content_type)).toString());
-                    getView().openHomeScreen();
-                    mPreferences.saveUserOnStorage(context, user);
-                }
+                        User user = mCommonMapper.mapUser(response.body(), headers.get(mContext.getString(R.string.authorization)).toString(),
+                                headers.get(mContext.getResources().getString(R.string.content_type)).toString());
+                        getView().openHomeScreen();
+                        mPreferences.saveUserOnStorage(mContext, user);
+                    }
 
-                @Override
-                public void onFailure(Call<UserResponse> call, Throwable t) {
-                    getView().showError();
-                    t.printStackTrace();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<UserResponse> call, Throwable t) {
+                        getView().showError(R.string.request_error);
+                        t.printStackTrace();
+                    }
+                });
+            } else {
+                getView().showError(R.string.network_error);
+            }
         }
 
     }
@@ -116,32 +122,36 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     public void registerNewUser(String name, String email, String password, String passwordConfimation) {
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfimation.isEmpty()) {
-            getView().showEmptyFieldError();
+            getView().showError(R.string.empty_field);
         } else {
-            User newUser = new User();
-            newUser.setName(name);
-            newUser.setEmail(email);
-            newUser.setPassword(password);
-            newUser.setPasswordConfirmation(passwordConfimation);
+            if (Utils.isNetAvailable(mContext)) {
+                User newUser = new User();
+                newUser.setName(name);
+                newUser.setEmail(email);
+                newUser.setPassword(password);
+                newUser.setPasswordConfirmation(passwordConfimation);
 
-            Call<UserResponse> newUserCall = mRetrofit.createNewUser(newUser);
-            newUserCall.enqueue(new Callback<UserResponse>() {
-                @Override
-                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                    Headers headers = response.headers();
+                Call<UserResponse> newUserCall = mRetrofit.createNewUser(newUser);
+                newUserCall.enqueue(new Callback<UserResponse>() {
+                    @Override
+                    public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                        Headers headers = response.headers();
 
-                    User user = mCommonMapper.mapUser(response.body(), headers.get(context.getString(R.string.authorization)).toString(),
-                            headers.get(context.getResources().getString(R.string.content_type)).toString());
-                    getView().openHomeScreen();
-                    mPreferences.saveUserOnStorage(context, user);
-                }
+                        User user = mCommonMapper.mapUser(response.body(), headers.get(mContext.getString(R.string.authorization)).toString(),
+                                headers.get(mContext.getResources().getString(R.string.content_type)).toString());
+                        getView().openHomeScreen();
+                        mPreferences.saveUserOnStorage(mContext, user);
+                    }
 
-                @Override
-                public void onFailure(Call<UserResponse> call, Throwable t) {
-                    getView().showError();
-                    t.printStackTrace();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<UserResponse> call, Throwable t) {
+                        getView().showError(R.string.request_error);
+                        t.printStackTrace();
+                    }
+                });
+            } else {
+                getView().showError(R.string.network_error);
+            }
         }
 
     }

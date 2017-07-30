@@ -19,12 +19,14 @@ package com.orainteractive.orachat.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BasePresenter;
 import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.model.ChatsResponse;
 import com.orainteractive.orachat.model.SharedPrefences;
 import com.orainteractive.orachat.model.mapper.CommonMapper;
 import com.orainteractive.orachat.services.RetrofitService;
+import com.orainteractive.orachat.util.Utils;
 import com.orainteractive.orachat.view.fragment.chats.ChatsView;
 
 import java.util.List;
@@ -65,8 +67,12 @@ public class ChatPresenter extends BasePresenter<ChatsView> implements Observer<
     }
 
     public void requestChatsList() {
-        Observable<ChatsResponse> chatsResponseObservable = mRetrofit.getChatsList(getToken(), getContentType(), 1, 50);
-        subscribe(chatsResponseObservable, this);
+        if (Utils.isNetAvailable(mContext)) {
+            Observable<ChatsResponse> chatsResponseObservable = mRetrofit.getChatsList(getToken(), getContentType(), 1, 50);
+            subscribe(chatsResponseObservable, this);
+        } else {
+            getView().showError(R.string.network_error);
+        }
     }
 
     @Override
@@ -82,7 +88,7 @@ public class ChatPresenter extends BasePresenter<ChatsView> implements Observer<
 
     @Override
     public void onError(@NonNull Throwable e) {
-        getView().showError();
+        getView().showError(R.string.request_error);
     }
 
     @Override

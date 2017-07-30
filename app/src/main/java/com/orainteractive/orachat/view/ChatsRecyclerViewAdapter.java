@@ -16,6 +16,7 @@
 
 package com.orainteractive.orachat.view;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,12 +26,15 @@ import android.widget.TextView;
 
 import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.model.Chats;
+import com.orainteractive.orachat.util.Utils;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.internal.Util;
 
 /**
  * Created by kamilabrito on 7/27/17.
@@ -40,6 +44,11 @@ public class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecycler
 
     private OnItemClickListener onItemClickListener;
     private List<Chats> mChatsList = new ArrayList<>();
+    private Context mContext;
+
+    public ChatsRecyclerViewAdapter(Context mContext) {
+        this.mContext = mContext;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,10 +70,19 @@ public class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecycler
                 }
             };
             holder.cvChatCard.setOnClickListener(listener);
-            holder.tvHeaderDate.setText(currentChat.getLast_chat_message().getCreated_at());
-            holder.tvChatNameAndUser.setText(currentChat.getName() + " " + currentChat.getUsers().get(0).getName());
+            holder.tvChatNameAndUser.setText(currentChat.getName() + " - " + currentChat.getUsers().get(0).getName());
             holder.tvLastMessage.setText(currentChat.getLast_chat_message().getMessage());
-            holder.tvLastUserTime.setText(currentChat.getLast_chat_message().getCreated_at());
+            try {
+                holder.tvLastUserTime.setText(Utils.getDateAgo(currentChat.getLast_chat_message().getCreated_at(), mContext));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                holder.tvHeaderDate.setText(Utils.formatDateChatHeader(currentChat.getLast_chat_message().getCreated_at()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
     }

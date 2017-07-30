@@ -29,9 +29,7 @@ public interface HomeView extends BaseView {
 
     void updateChatList(Chats chatMessages);
 
-    void showEmptyFieldError();
-
-    void showError();
+    void showError(int text);
 
     boolean createNewChatIsVisible();
 

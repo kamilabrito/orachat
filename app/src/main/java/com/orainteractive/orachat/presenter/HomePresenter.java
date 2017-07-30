@@ -18,6 +18,7 @@ package com.orainteractive.orachat.presenter;
 
 import android.content.Context;
 
+import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.base.BasePresenter;
 import com.orainteractive.orachat.model.ChatCreate;
 import com.orainteractive.orachat.model.ChatCreateResponse;
@@ -25,6 +26,7 @@ import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.model.SharedPrefences;
 import com.orainteractive.orachat.model.mapper.CommonMapper;
 import com.orainteractive.orachat.services.RetrofitService;
+import com.orainteractive.orachat.util.Utils;
 import com.orainteractive.orachat.view.home.HomeView;
 
 import javax.inject.Inject;
@@ -78,11 +80,15 @@ public class HomePresenter extends BasePresenter<HomeView> implements Observer<C
      */
     public void createNewChat(String name, String message) {
         if (name.isEmpty() || message.isEmpty()) {
-            getView().showEmptyFieldError();
+            getView().showError(R.string.empty_field);
         } else {
-            ChatCreate chatCreate = new ChatCreate(name, message);
-            Observable<ChatCreateResponse> chatsCreateResponseObservable = mRetrofit.createNewChat(getToken(), getContentType(), chatCreate);
-            subscribe(chatsCreateResponseObservable, this);
+            if (Utils.isNetAvailable(mContext)) {
+                ChatCreate chatCreate = new ChatCreate(name, message);
+                Observable<ChatCreateResponse> chatsCreateResponseObservable = mRetrofit.createNewChat(getToken(), getContentType(), chatCreate);
+                subscribe(chatsCreateResponseObservable, this);
+            } else {
+                getView().showError(R.string.network_error);
+            }
         }
     }
 
@@ -99,7 +105,7 @@ public class HomePresenter extends BasePresenter<HomeView> implements Observer<C
 
     @Override
     public void onError(@NonNull Throwable e) {
-        getView().showError();
+        getView().showError(R.string.request_error);
         e.printStackTrace();
     }
 

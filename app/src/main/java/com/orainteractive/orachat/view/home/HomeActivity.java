@@ -141,23 +141,13 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     }
 
     /**
-     * Shows toast with empty fields message
-     */
-    @Override
-    public void showEmptyFieldError() {
-        mPbNewChat.setVisibility(View.GONE);
-        Toast.makeText(this, getApplicationContext().getResources().
-                getString(R.string.empty_field), Toast.LENGTH_LONG).show();
-    }
-
-    /**
      * Shows toast with error message
      */
     @Override
-    public void showError() {
+    public void showError(int text) {
         mPbNewChat.setVisibility(View.GONE);
         Toast.makeText(this, getApplicationContext().getResources().
-                getString(R.string.request_error), Toast.LENGTH_LONG).show();
+                getString(text), Toast.LENGTH_LONG).show();
     }
 
     @Override

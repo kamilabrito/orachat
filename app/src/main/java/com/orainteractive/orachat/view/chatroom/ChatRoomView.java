@@ -35,9 +35,7 @@ public interface ChatRoomView extends BaseView {
 
     void updateChatName(String name);
 
-    void showErrorToast();
+    void showErrorToast(int text);
 
     void hideEditChatView();
-
-    void showEmptyFieldError();
 }

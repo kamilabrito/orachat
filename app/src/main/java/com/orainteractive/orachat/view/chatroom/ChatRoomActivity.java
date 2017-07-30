@@ -56,6 +56,9 @@ import butterknife.BindView;
 
 public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View.OnClickListener {
 
+
+    private static final String CHAT_INFO = "CHAT_INFO";
+
     @Inject
     ChatRoomPresenter mPresenter;
 
@@ -89,7 +92,7 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
         imm.showSoftInput(etChatRoomMessage, 0);
 
         try {
-            mChat = (Chats) getIntent().getSerializableExtra("CHAT_INFO");
+            mChat = (Chats) getIntent().getSerializableExtra(CHAT_INFO);
             if (mChat != null) {
                 pbChatRoom.setVisibility(View.VISIBLE);
                 mPresenter.loadChatRoomMessages(mChat.getId());
@@ -100,7 +103,7 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
             e.printStackTrace();
         }
 
-        mChatRoomRecylerAdapter = new ChatRoomRecyclerViewAdapter();
+        mChatRoomRecylerAdapter = new ChatRoomRecyclerViewAdapter(this);
         ibChatRoomSend.setOnClickListener(this);
         mChatRoomRecylerAdapter.setmLocalUser(mPresenter.getLoggedUser());
         mRecyclerChatRoom.setLayoutManager(new LinearLayoutManager(this));
@@ -150,9 +153,9 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
     }
 
     @Override
-    public void showErrorToast() {
+    public void showErrorToast(int text) {
         pbChatRoom.setVisibility(View.GONE);
-        Toast.makeText(getApplicationContext(), R.string.request_error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -192,15 +195,5 @@ public class ChatRoomActivity extends BaseActivity implements ChatRoomView, View
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Shows toast with empty fields message
-     */
-    @Override
-    public void showEmptyFieldError() {
-        pbChatRoom.setVisibility(View.GONE);
-        Toast.makeText(this, getApplicationContext().getResources().
-                getString(R.string.empty_field), Toast.LENGTH_LONG).show();
     }
 }

@@ -25,6 +25,7 @@ import com.orainteractive.orachat.model.User;
 import com.orainteractive.orachat.model.UserResponse;
 import com.orainteractive.orachat.model.mapper.CommonMapper;
 import com.orainteractive.orachat.services.RetrofitService;
+import com.orainteractive.orachat.util.Utils;
 import com.orainteractive.orachat.view.fragment.account.AccountView;
 
 import javax.inject.Inject;
@@ -33,6 +34,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import okhttp3.internal.Util;
 
 /**
  * Created by kamilabrito on 7/29/17.
@@ -61,16 +63,20 @@ public class AccountPresenter extends BasePresenter<AccountView> implements Obse
     public void updateAccountInformation(String name, String email, String password, String passwordConfirmation) {
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirmation.isEmpty()) {
-            getView().showEmptyFieldError();
+            getView().showError(R.string.empty_field);
         } else {
-            User updateUser = new User();
-            updateUser.setName(name);
-            updateUser.setEmail(email);
-            updateUser.setPassword(password);
-            updateUser.setPasswordConfirmation(passwordConfirmation);
+            if (Utils.isNetAvailable(mContext)) {
+                User updateUser = new User();
+                updateUser.setName(name);
+                updateUser.setEmail(email);
+                updateUser.setPassword(password);
+                updateUser.setPasswordConfirmation(passwordConfirmation);
 
-            Observable<UserResponse> userResponseObserver = mRetrofit.updateUserInformation(getToken(), getContentType(), updateUser);
-            subscribe(userResponseObserver, this);
+                Observable<UserResponse> userResponseObserver = mRetrofit.updateUserInformation(getToken(), getContentType(), updateUser);
+                subscribe(userResponseObserver, this);
+            } else {
+                getView().showError(R.string.network_error);
+            }
 
         }
     }
@@ -89,7 +95,8 @@ public class AccountPresenter extends BasePresenter<AccountView> implements Obse
 
     @Override
     public void onError(@NonNull Throwable e) {
-
+        getView().showError(R.string.request_error);
+        e.printStackTrace();
     }
 
     @Override

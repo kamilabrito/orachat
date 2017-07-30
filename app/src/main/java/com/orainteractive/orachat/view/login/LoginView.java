@@ -28,9 +28,7 @@ public interface LoginView extends BaseView {
 
     void showRegisterView();
 
-    void showEmptyFieldError();
-
     void openHomeScreen();
 
-    void showError();
+    void showError(int text);
 }

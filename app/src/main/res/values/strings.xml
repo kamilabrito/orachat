@@ -40,4 +40,7 @@
     <string name="save">Save</string>
     <string name="user_information_updated">User information successful updated</string>
     <string name="request_error">Something went wrong, try again later</string>
+    <string name="days_ago">days ago</string>
+    <string name="weeks_ago">weeks ago</string>
+    <string name="network_error">Network error. Verify your network connection</string>
 </resources>

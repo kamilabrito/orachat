@@ -16,6 +16,7 @@
 
 package com.orainteractive.orachat.view;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +30,9 @@ import com.orainteractive.orachat.R;
 import com.orainteractive.orachat.model.ChatMessage;
 import com.orainteractive.orachat.model.Chats;
 import com.orainteractive.orachat.model.User;
+import com.orainteractive.orachat.util.Utils;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +48,11 @@ public class ChatRoomRecyclerViewAdapter extends RecyclerView.Adapter<ChatRoomRe
 
     private List<ChatMessage> mChatRoomMessages = new ArrayList<>();
     private User mLocalUser;
+    private Context mContext;
+
+    public ChatRoomRecyclerViewAdapter(Context mContext) {
+        this.mContext = mContext;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,15 +70,23 @@ public class ChatRoomRecyclerViewAdapter extends RecyclerView.Adapter<ChatRoomRe
                 holder.llOtherUser.setVisibility(View.GONE);
                 holder.llLocalUser.setVisibility(View.VISIBLE);
                 holder.tvLocalMessage.setText(currentChat.getMessage());
-                holder.tvLocalUserAndTime.setText(currentChat.getUser().getName()
-                        + " " + currentChat.getCreated_at());
+                try {
+                    holder.tvLocalUserAndTime.setText(currentChat.getUser().getName()
+                                + " - " + Utils.getDateAgo(currentChat.getCreated_at(), mContext));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
             } else {
                 holder.llLocalUser.setVisibility(View.GONE);
                 holder.llOtherUser.setVisibility(View.VISIBLE);
                 holder.tvOtherMessage.setText(currentChat.getMessage());
-                holder.tvOtherUserAndTime.setText(currentChat.getUser().getName()
-                        + " " + currentChat.getCreated_at());
+                try {
+                    holder.tvOtherUserAndTime.setText(currentChat.getUser().getName()
+                                + " - " + Utils.getDateAgo(currentChat.getCreated_at(), mContext));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
 
         }

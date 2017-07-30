@@ -31,5 +31,5 @@ public interface ChatsView extends BaseView {
 
     void showNewChatOnList(Chats newChat);
 
-    void showError();
+    void showError(int text);
 }

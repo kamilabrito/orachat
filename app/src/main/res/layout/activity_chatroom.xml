@@ -40,6 +40,7 @@
         android:paddingBottom="@dimen/rl_chatroom_paddin_bottom_top"
         android:paddingTop="@dimen/rl_chatroom_paddin_bottom_top"
         android:id="@+id/bottom_bar"
+        android:background="@android:color/darker_gray"
         android:layout_above="@+id/rv_chat_room_messages"
         android:layout_alignParentBottom="true">
 

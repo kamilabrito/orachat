@@ -120,16 +120,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     }
 
     /**
-     * Shows toast with empty fields message
-     */
-    @Override
-    public void showEmptyFieldError() {
-        pbLogin.setVisibility(View.GONE);
-        Toast.makeText(this, getApplicationContext().getResources().
-                getString(R.string.empty_field), Toast.LENGTH_LONG).show();
-    }
-
-    /**
      * Opens home screen activity
      */
     @Override
@@ -142,10 +132,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
      * Shows toast with error message
      */
     @Override
-    public void showError() {
+    public void showError(int text) {
         pbLogin.setVisibility(View.GONE);
         Toast.makeText(this, getApplicationContext().getResources().
-                getString(R.string.request_error), Toast.LENGTH_LONG).show();
+                getString(text), Toast.LENGTH_LONG).show();
     }
 
     @Override

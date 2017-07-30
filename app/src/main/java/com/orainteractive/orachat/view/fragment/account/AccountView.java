@@ -24,9 +24,7 @@ import com.orainteractive.orachat.base.BaseView;
 
 public interface AccountView extends BaseView {
 
-    void showEmptyFieldError();
-
-    void showError();
+    void showError(int text);
 
     void confirmUpdate();
 }

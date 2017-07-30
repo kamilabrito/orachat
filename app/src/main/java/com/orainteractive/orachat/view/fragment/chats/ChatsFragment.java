@@ -66,7 +66,7 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        chatsRecyclerViewAdapter = new ChatsRecyclerViewAdapter();
+        chatsRecyclerViewAdapter = new ChatsRecyclerViewAdapter(getContext());
         chatsRecyclerViewAdapter.setOnItemClickListener(this);
         rvChatsList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvChatsList.setAdapter(chatsRecyclerViewAdapter);
@@ -124,9 +124,9 @@ public class ChatsFragment extends BaseFragment implements ChatsView, OnItemClic
      * Shows toast with error message
      */
     @Override
-    public void showError() {
+    public void showError(int text) {
         pbChats.setVisibility(View.GONE);
         Toast.makeText(getContext(), getActivity().getResources().
-                getString(R.string.request_error), Toast.LENGTH_LONG).show();
+                getString(text), Toast.LENGTH_LONG).show();
     }
 }
